@@ -24,17 +24,17 @@ public class Tokens {
   private Long id;
 
   @Column(name = "token", nullable = false, length = 255)
-  private String token;
+  private String token; // токен
 
   @Column(name = "token_type", nullable = false, length = 50)
-  private String tokenType;
+  private String tokenType; // тип токена (access/refresh)
 
   // TODO подумать как лучше сделать время
   @Column(name = "created_at", nullable = false)
-  private Timestamp createdAt;
+  private Timestamp createdAt; // когда создан токен
 
   @Column(name = "expires_at", nullable = false)
-  private Timestamp expiresAt;
+  private Timestamp expiresAt; // когда истекает токен
 
   // TODO связь с user
 }

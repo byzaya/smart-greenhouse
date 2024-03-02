@@ -23,14 +23,5 @@ public class SensorType {
   private Long id;
 
   @Column(name = "sensor_name", nullable = false, length = 50)
-  private String sensorName;
-
-  @Column(name = "is_active", nullable = false)
-  private Boolean isActive;
-
-  @Column(name = "sendor_number", nullable = false)
-  private Integer sensorNumber;
-
-  // TODO связь с типом датчика
-  // TODO связь с теплицей
+  private String sensorName; // тип датчика (влажности/освещенности/температуры)
 }

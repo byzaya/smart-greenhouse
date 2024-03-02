@@ -24,18 +24,18 @@ public class Users {
   private Long id;
 
   @Column(name = "username", nullable = false, unique = true, length = 50)
-  private String username;
+  private String username; // имя пользователя
 
   @Column(name = "password", nullable = false, length = 50)
-  private byte[] password;
+  private byte[] password; // захешированный пароль
 
   @Column(name = "email", nullable = false, unique = true, length = 50)
-  private String email;
+  private String email; // электронная почта
 
   // TODO подумать как лучше сделать время
   @Column(name = "created_at", nullable = false)
-  private Timestamp createdAt;
+  private Timestamp createdAt; // когда создан аккаунт
 
   @Column(name = "updated_at", nullable = false)
-  private Timestamp updatedAt;
+  private Timestamp updatedAt; // когда обновлена информация в аккаунте
 }
