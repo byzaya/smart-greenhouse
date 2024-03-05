@@ -27,7 +27,7 @@ public class Users {
   private String username; // имя пользователя
 
   @Column(name = "password", nullable = false, length = 50)
-  private byte[] password; // захешированный пароль
+  private byte[] password; // захэшированный пароль
 
   @Column(name = "email", nullable = false, unique = true, length = 50)
   private String email; // электронная почта
