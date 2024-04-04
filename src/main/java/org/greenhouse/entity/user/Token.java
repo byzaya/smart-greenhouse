@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,27 +17,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.greenhouse.entity.enums.TokenType;
 
+// TODO в миграциях переделать
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "tokens")
 public class Token {
 
   @Id
   @GeneratedValue
   public Integer id;
 
-  @Column(unique = true)
-  public String token;
+  @Column(name = "token", unique = true)
+  public String token; // токен
 
   @Enumerated(EnumType.STRING)
-  public TokenType tokenType = TokenType.BEARER;
+  public TokenType tokenType = TokenType.BEARER; // тип токена
 
-  public boolean revoked;
+  @Column(name = "revoked")
+  public boolean revoked; // аннулирован
 
-  public boolean expired;
+  @Column(name = "expired")
+  public boolean expired; // истек
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")

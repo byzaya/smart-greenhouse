@@ -1,5 +1,6 @@
 package org.greenhouse.entity.user;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,6 +19,7 @@ import org.greenhouse.entity.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+// TODO в миграциях переделать
 @Getter
 @Setter
 @Builder
@@ -31,11 +33,14 @@ public class User implements UserDetails {
   @GeneratedValue
   private Integer id;
 
-  private String email;
-  private String password;
+  @Column(name = "email", nullable = false, unique = true)
+  private String email; // имя пользователя == email
+
+  @Column(name = "password", nullable = false, length = 255)
+  private String password; // захэшированный пароль
 
   @Enumerated(EnumType.STRING)
-  private Role role;
+  private Role role; // роль
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
