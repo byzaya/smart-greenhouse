@@ -10,9 +10,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Table(name = "humidity")
 public class Humidity extends Readings {
 
+  // TODO seedbedId
 }

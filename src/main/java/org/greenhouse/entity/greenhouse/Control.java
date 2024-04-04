@@ -1,5 +1,6 @@
 package org.greenhouse.entity.greenhouse;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,4 +22,20 @@ public class Control {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Column(name = "window_status", nullable = false)
+  private int windowStatus; // статус открытости окна (закрыто/открыто наполовину/открыто)
+
+  @Column(name = "watering_enabled", nullable = false)
+  private boolean wateringEnabled; // вкл/выкл полив
+
+  @Column(name = "light_enabled", nullable = false)
+  private boolean lightEnabled; // вкл/выкл свет
+
+  @Column(name = "fan_enabled", nullable = false)
+  private boolean fanEnabled; // вкл/выкл вентилятор
+
+  @Column(name = "heater_enabled", nullable = false)
+  private boolean heaterEnabled; // вкл/выкл
+
+  // TODO greenhouseId
 }

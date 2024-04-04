@@ -10,9 +10,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Table(name = "light")
 public class Light extends Readings {
 
+  // TODO greenhouseId
 }

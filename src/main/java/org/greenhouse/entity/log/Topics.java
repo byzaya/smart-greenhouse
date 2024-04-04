@@ -1,5 +1,6 @@
 package org.greenhouse.entity.log;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,4 +22,6 @@ public class Topics {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Column(name = "topic_name", nullable = false, unique = true, length = 50)
+  private String topicName; // название темы логов
 }
