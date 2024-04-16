@@ -40,6 +40,7 @@ public class User implements UserDetails {
   private String password; // захэшированный пароль
 
   @Enumerated(EnumType.STRING)
+  @Column(name = "role", nullable = false)
   private Role role; // роль
 
   @OneToMany(mappedBy = "user")
