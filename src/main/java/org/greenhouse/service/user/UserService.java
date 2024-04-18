@@ -16,22 +16,18 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
-
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
-        // check if the current password is correct
+        // проверяем, что введенный пароль корректный
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new IllegalStateException("Wrong password");
+            throw new IllegalStateException("Wrong password"); // todo сделать свое исключение
         }
-        // check if the two new passwords are the same
+        // проверка что оба введенных пароля одинаковые
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-            throw new IllegalStateException("Password are not the same");
+            throw new IllegalStateException("Password are not the same"); // todo сделать свое исключение
         }
-
-        // update the password
+        // обновляем пароль
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-
-        // save the new password
         repository.save(user);
     }
 }

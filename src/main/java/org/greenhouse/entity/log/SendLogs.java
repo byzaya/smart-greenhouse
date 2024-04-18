@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
@@ -33,5 +35,7 @@ public class SendLogs {
   @Column(name = "send_time", nullable = false)
   private Timestamp sendTime; // когда была выполнена команда
 
-  // TODO topicId
+  @ManyToOne
+  @JoinColumn(name = "topic_id", nullable = false)
+  private Topics topic;
 }

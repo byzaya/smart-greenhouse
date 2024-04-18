@@ -1,5 +1,6 @@
 package org.greenhouse.entity.user;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.greenhouse.entity.enums.Role;
+import org.greenhouse.entity.greenhouse.Configurations;
+import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -45,6 +49,12 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Greenhouses> greenhouse = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Configurations> configuration = new ArrayList<>();
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

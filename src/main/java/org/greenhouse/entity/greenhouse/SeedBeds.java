@@ -1,15 +1,23 @@
 package org.greenhouse.entity.greenhouse;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.greenhouse.entity.log.ReceiveLogs;
+import org.greenhouse.entity.log.readings.Humidity;
 
 @Entity
 @Getter
@@ -44,6 +52,11 @@ public class SeedBeds {
   @Column(name = "max_humidity", nullable = false)
   private int maxHumidity; // максимальный уровень влажности
 
-  // TODO greenhouseId
+  @ManyToOne
+  @JoinColumn(name = "greenhouse_id", nullable = false)
+  private Greenhouses greenhouse;
+
+  @OneToMany(mappedBy = "seedBed", cascade = CascadeType.ALL)
+  private List<Humidity> humidity = new ArrayList<>();
 }
 

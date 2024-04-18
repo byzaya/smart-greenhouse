@@ -1,15 +1,26 @@
 package org.greenhouse.entity.greenhouse;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.greenhouse.entity.log.readings.Humidity;
+import org.greenhouse.entity.log.readings.Light;
+import org.greenhouse.entity.log.readings.Temperature;
+import org.greenhouse.entity.sensor.Sensors;
+import org.greenhouse.entity.user.User;
 
 @Entity
 @Getter
@@ -28,6 +39,26 @@ public class Greenhouses {
   @Column(name = "greenhouse_name", nullable = false, length = 50)
   private String greenhouseName; // название теплицы
 
-  // TODO userId
-  // TODO configurationId
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
+
+  @ManyToOne
+  @JoinColumn(name = "configuration_id", nullable = false)
+  private Configurations configuration;
+
+  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
+  private List<Light> light = new ArrayList<>();
+
+  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
+  private List<Temperature> temperature = new ArrayList<>();
+
+  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
+  private List<SeedBeds> seedBeds = new ArrayList<>();
+
+  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
+  private List<Control> control = new ArrayList<>();
+
+  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
+  private List<Sensors> sensors = new ArrayList<>();
 }

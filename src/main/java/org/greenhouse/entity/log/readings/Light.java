@@ -1,19 +1,24 @@
 package org.greenhouse.entity.log.readings;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.greenhouse.entity.greenhouse.Greenhouses;
 
 @Entity
 @Getter
 @Setter
-//@AllArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "light")
 public class Light extends Readings {
 
-  // TODO greenhouseId
+  @ManyToOne
+  @JoinColumn(name = "greenhouse_id", nullable = false)
+  private Greenhouses greenhouse;
 }

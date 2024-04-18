@@ -5,11 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.greenhouse.entity.greenhouse.Greenhouses;
+import org.greenhouse.entity.log.Topics;
 
 @Entity
 @Getter
@@ -27,9 +31,14 @@ public class Sensors {
                             // (если сломан - приходят странные данные,
                             // отличные от данных с других подобных датчиков)
 
-  @Column(name = "sendor_number", nullable = false)
+  @Column(name = "sensor_number", nullable = false)
   private Integer sensorNumber; // порядковый номер датчика
 
-  // TODO связь с типом датчика
-  // TODO связь с теплицей
+  @ManyToOne
+  @JoinColumn(name = "sensor_type_id", nullable = false)
+  private SensorType sensorType;
+
+  @ManyToOne
+  @JoinColumn(name = "greenhouse_id", nullable = false)
+  private Greenhouses greenhouse;
 }
