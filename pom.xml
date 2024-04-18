@@ -29,6 +29,7 @@
         <swagger.version>2.2.8</swagger.version>
         <slf4j.version>2.0.7</slf4j.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <jsonwebtoken.version>0.11.5</jsonwebtoken.version>
     </properties>
 
 
@@ -155,17 +156,17 @@
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
-                <version>0.11.5</version>
+                <version>${jsonwebtoken.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-impl</artifactId>
-                <version>0.11.5</version>
+                <version>${jsonwebtoken.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-jackson</artifactId>
-                <version>0.11.5</version>
+                <version>${jsonwebtoken.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
