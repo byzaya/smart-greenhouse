@@ -12,6 +12,7 @@ import org.greenhouse.entity.user.Token;
 import org.greenhouse.entity.user.User;
 import org.greenhouse.repository.user.TokenRepository;
 import org.greenhouse.repository.user.UserRepository;
+import org.greenhouse.resources.Patterns;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +31,9 @@ public class AuthenticationService {
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
+    if (!Patterns.patternMatches(request.getEmail(), Patterns.EmailPattern)) {
+      throw new IllegalStateException("Email is not valid");
+    }
     var user = User.builder()
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
@@ -46,6 +50,9 @@ public class AuthenticationService {
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    if (!Patterns.patternMatches(request.getEmail(), Patterns.EmailPattern)) {
+      throw new IllegalStateException("Email is not valid");
+    }
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             request.getEmail(),

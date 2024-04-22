@@ -40,9 +40,7 @@ public enum Role {
                   MANAGER_DELETE,
                   MANAGER_CREATE
           )
-  )
-
-  ;
+  );
 
   @Getter
   private final Set<Permission> permissions;

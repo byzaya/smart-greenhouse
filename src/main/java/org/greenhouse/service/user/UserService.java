@@ -22,7 +22,7 @@ public class UserService {
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
             throw new IllegalStateException("Wrong password"); // todo сделать свое исключение
         }
-        // проверка что оба введенных пароля одинаковые
+        // проверка, что оба введенных пароля одинаковые
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
             throw new IllegalStateException("Password are not the same"); // todo сделать свое исключение
         }

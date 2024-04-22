@@ -6,4 +6,5 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionApiHandler {
   // TODO продумать исключения для пользователя
 
+
 }
