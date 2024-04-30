@@ -25,19 +25,19 @@ public class Control {
   private Long id;
 
   @Column(name = "window_status", nullable = false)
-  private int windowStatus; // статус открытости окна (закрыто/открыто наполовину/открыто)
+  private Integer windowStatus; // статус открытости окна (закрыто/открыто наполовину/открыто)
 
   @Column(name = "watering_enabled", nullable = false)
-  private boolean wateringEnabled; // вкл/выкл полив
+  private Boolean wateringEnabled; // вкл/выкл полив
 
   @Column(name = "light_enabled", nullable = false)
-  private boolean lightEnabled; // вкл/выкл свет
+  private Boolean lightEnabled; // вкл/выкл свет
 
   @Column(name = "fan_enabled", nullable = false)
-  private boolean fanEnabled; // вкл/выкл вентилятор
+  private Boolean fanEnabled; // вкл/выкл вентилятор
 
   @Column(name = "heater_enabled", nullable = false)
-  private boolean heaterEnabled; // вкл/выкл
+  private Boolean heaterEnabled; // вкл/выкл
 
   @ManyToOne
   @JoinColumn(name = "greenhouse_id", nullable = false)

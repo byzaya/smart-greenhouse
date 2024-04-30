@@ -34,23 +34,23 @@ public class SeedBeds {
   private String seedbedName; // название/номер грядки
 
   @Column(name = "is_auto", nullable = false)
-  private boolean isAuto; // автоматический режим вкл/выкл - если вкл, то программа автоматически поддерживает все параметры
+  private Boolean isAuto; // автоматический режим вкл/выкл - если вкл, то программа автоматически поддерживает все параметры
                           // если выкл - пользователь сам управляет параметрами грядки
 
   @Column(name = "is_active", nullable = false)
-  private boolean isActive; // активна ли эта конфигурация
+  private Boolean isActive; // активна ли эта конфигурация
 
   @Column(name = "watering_duration", nullable = false)
-  private int wateringDuration; // длительность полива
+  private Integer wateringDuration; // длительность полива
 
   @Column(name = "watering_frequency", nullable = false)
-  private int wateringFrequency; // частота полива
+  private Integer wateringFrequency; // частота полива
 
   @Column(name = "min_humidity", nullable = false)
-  private int minHumidity; // минимальный уровень влажности
+  private Integer minHumidity; // минимальный уровень влажности
 
   @Column(name = "max_humidity", nullable = false)
-  private int maxHumidity; // максимальный уровень влажности
+  private Integer maxHumidity; // максимальный уровень влажности
 
   @ManyToOne
   @JoinColumn(name = "greenhouse_id", nullable = false)

@@ -10,6 +10,7 @@ import org.greenhouse.dto.auth.RegisterRequest;
 import org.greenhouse.entity.enums.TokenType;
 import org.greenhouse.entity.user.Token;
 import org.greenhouse.entity.user.User;
+import org.greenhouse.exception.message.InvalidEmailException;
 import org.greenhouse.repository.user.TokenRepository;
 import org.greenhouse.repository.user.UserRepository;
 import org.greenhouse.resources.Patterns;
@@ -30,9 +31,10 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
+  // регистрация пользователя
   public AuthenticationResponse register(RegisterRequest request) {
     if (!Patterns.patternMatches(request.getEmail(), Patterns.EmailPattern)) {
-      throw new IllegalStateException("Email is not valid");
+      throw new InvalidEmailException("Email is not valid");
     }
     var user = User.builder()
         .email(request.getEmail())
@@ -49,9 +51,10 @@ public class AuthenticationService {
         .build();
   }
 
+  // аутентификация пользователя
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     if (!Patterns.patternMatches(request.getEmail(), Patterns.EmailPattern)) {
-      throw new IllegalStateException("Email is not valid");
+      throw new InvalidEmailException("Email is not valid");
     }
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -93,6 +96,7 @@ public class AuthenticationService {
     tokenRepository.saveAll(validUserTokens);
   }
 
+  // обновление токена
   public void refreshToken(
       HttpServletRequest request,
       HttpServletResponse response

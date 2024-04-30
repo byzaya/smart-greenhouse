@@ -3,9 +3,12 @@ package org.greenhouse.controller.user;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.auth.ChangePasswordRequest;
+import org.greenhouse.dto.user.UserDto;
 import org.greenhouse.service.user.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,14 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
+  private final UserService service;
 
-    @PatchMapping
-    public ResponseEntity<?> changePassword(
-          @RequestBody ChangePasswordRequest request,
-          Principal connectedUser
-    ) {
-        service.changePassword(request, connectedUser);
-        return ResponseEntity.ok().build();
-    }
+  @PatchMapping
+  public ResponseEntity<?> changePassword(
+      @RequestBody ChangePasswordRequest request, Principal connectedUser) {
+    service.changePassword(request, connectedUser);
+    return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/{userId}")
+  public ResponseEntity<UserDto> getUserInfo(@PathVariable Integer userId) {
+    UserDto user = service.getInfo(userId);
+    return ResponseEntity.ok(user);
+  }
 }
