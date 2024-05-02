@@ -13,6 +13,8 @@ public class SensorTypeService {
 
   private final SensorsTypeRepository sensorTypeRepository;
 
+  // TODO валидация
+  // добавление типа датчика
   public SensorTypeDto createSensorType(SensorTypeDto sensorTypeDto) {
     SensorType sensorType = new SensorType();
     sensorType.setSensorName(sensorTypeDto.sensorName());
@@ -20,6 +22,7 @@ public class SensorTypeService {
     return SensorTypeDto.fromSensorType(savedSensorType);
   }
 
+  // получение типа датчика
   public SensorTypeDto getSensorTypeById(Long id) {
     SensorType sensorType =
         sensorTypeRepository

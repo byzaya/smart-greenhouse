@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,12 @@ public class SeedBedController {
   public ResponseEntity<SeedBedDto> createSeedBed(@RequestBody SeedBedDto seedBedDto) {
     SeedBedDto createdSeedBed = seedBedService.createSeedBed(seedBedDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdSeedBed);
+  }
+
+  @PutMapping("/update/{id}")
+  public ResponseEntity<SeedBedDto> updateSeedBed(@PathVariable Long id, @RequestBody SeedBedDto updatedSeedBedDto) {
+    SeedBedDto updatedSeedBed = seedBedService.updateSeedBed(id, updatedSeedBedDto);
+    return ResponseEntity.ok(updatedSeedBed);
   }
 
   @GetMapping("/{id}")

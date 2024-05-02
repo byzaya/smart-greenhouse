@@ -22,6 +22,7 @@ public class GreenhouseService {
   private final UserRepository userRepository;
   private final ConfigurationsRepository configurationRepository;
 
+  // TODO валидация
   // добавление теплицы
   public GreenhouseDto createGreenhouse(GreenhouseDto greenhouseDto) {
     Greenhouses greenhouse = new Greenhouses();

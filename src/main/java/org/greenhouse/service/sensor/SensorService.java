@@ -19,6 +19,7 @@ public class SensorService {
   private final SensorsTypeRepository sensorTypeRepository;
   private final GreenhousesRepository greenhouseRepository;
 
+  // TODO валидация
   // добавление датчика
   public SensorsDto createSensor(SensorsDto sensorDto) {
     Sensors sensor = new Sensors();

@@ -22,6 +22,21 @@ public class SeedBedService {
   // добавление грядки
   public SeedBedDto createSeedBed(SeedBedDto seedBedDto) {
     SeedBeds seedBeds = new SeedBeds();
+    updateSeedBedsFromDto(seedBeds, seedBedDto);
+    return SeedBedDto.fromSeedBeds(seedBedRepository.save(seedBeds));
+  }
+
+  // изменить конфигурацию грядки
+  public SeedBedDto updateSeedBed(Long id, SeedBedDto updatedSeedBedDto) {
+    SeedBeds seedBeds =
+        seedBedRepository
+            .findById(id)
+            .orElseThrow(() -> new SeedBedNotFoundException("SeedBed not found with ID: " + id));
+    updateSeedBedsFromDto(seedBeds, updatedSeedBedDto);
+    return SeedBedDto.fromSeedBeds(seedBedRepository.save(seedBeds));
+  }
+
+  private void updateSeedBedsFromDto(SeedBeds seedBeds, SeedBedDto seedBedDto) {
     seedBeds.setSeedbedName(seedBedDto.seedbedName());
     seedBeds.setIsAuto(seedBedDto.isAuto());
     seedBeds.setIsActive(seedBedDto.isActive());
@@ -29,9 +44,13 @@ public class SeedBedService {
     seedBeds.setWateringFrequency(seedBedDto.wateringFrequency());
     seedBeds.setMinHumidity(seedBedDto.minHumidity());
     seedBeds.setMaxHumidity(seedBedDto.maxHumidity());
-    seedBeds.setGreenhouse(greenhouseRepository.findById(seedBedDto.greenhouse().id()).orElseThrow());
-    SeedBeds savedSeedBeds = seedBedRepository.save(seedBeds);
-    return SeedBedDto.fromSeedBeds(savedSeedBeds);
+    seedBeds.setGreenhouse(
+        greenhouseRepository
+            .findById(seedBedDto.greenhouse().id())
+            .orElseThrow(
+                () ->
+                    new GreenhouseNotFoundException(
+                        "Greenhouse not found with ID: " + seedBedDto.greenhouse().id())));
   }
 
   // получение инфо о грядке
@@ -48,7 +67,10 @@ public class SeedBedService {
     Greenhouses greenhouses =
         greenhouseRepository
             .findById(greenhouseId)
-            .orElseThrow(() -> new GreenhouseNotFoundException("Greenhouse not found with ID: " + greenhouseId));
+            .orElseThrow(
+                () ->
+                    new GreenhouseNotFoundException(
+                        "Greenhouse not found with ID: " + greenhouseId));
     List<SeedBeds> seedBeds = greenhouses.getSeedBeds();
     return seedBeds.stream().map(SeedBeds::getId).toList();
   }
