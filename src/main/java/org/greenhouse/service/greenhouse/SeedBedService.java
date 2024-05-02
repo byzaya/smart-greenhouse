@@ -88,4 +88,6 @@ public class SeedBedService {
     }
     seedBedRepository.deleteById(id);
   }
+
+  // TODO isAuto вкл выкл
 }

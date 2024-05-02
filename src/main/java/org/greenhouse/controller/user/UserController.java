@@ -1,5 +1,6 @@
 package org.greenhouse.controller.user;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.auth.ChangePasswordRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@Tag(name = "Пользователь")
 public class UserController {
 
   private final UserService service;

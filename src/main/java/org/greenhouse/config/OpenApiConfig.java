@@ -18,12 +18,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
                 description = "OpenApi documentation for Smart Greenhouse",
                 title = "OpenApi specification - byzaya",
-                version = "1.0",
-                license = @License(
-                        name = "Licence name",
-                        url = "https://some-url.com"
-                ),
-                termsOfService = "Terms of service"
+                version = "1.0"
         ),
         servers = {
                 @Server(

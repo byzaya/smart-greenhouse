@@ -1,5 +1,6 @@
 package org.greenhouse.controller.sensor;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.sensor.SensorTypeDto;
 import org.greenhouse.service.sensor.SensorTypeService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/sensor-type")
 @RequiredArgsConstructor
+@Tag(name = "Тип датчика")
 public class SensorTypeController {
 
   private final SensorTypeService sensorTypeService;
