@@ -14,6 +14,7 @@ import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class GreenhouseService {
 
   // TODO валидация
   // добавление теплицы
+  @Transactional
   public GreenhouseDto createGreenhouse(GreenhouseDto greenhouseDto) {
     Greenhouses greenhouse = new Greenhouses();
     greenhouse.setLocation(greenhouseDto.location());
@@ -49,6 +51,7 @@ public class GreenhouseService {
   }
 
   // получение инфо о теплице по ее id
+  @Transactional(readOnly = true)
   public GreenhouseDto getGreenhouse(Long greenhouseId) {
     Greenhouses greenhouse =
         greenhousesRepository
@@ -61,6 +64,7 @@ public class GreenhouseService {
   }
 
   // получение всех id теплиц по id пользователя
+  @Transactional(readOnly = true)
   public List<Long> getGreenhouseIdsByUserId(Integer userId) {
     User user =
         userRepository
@@ -70,6 +74,7 @@ public class GreenhouseService {
   }
 
   // удаление теплицы по ее id
+  @Transactional
   public void deleteGreenhouse(Long id) {
     Greenhouses greenhouse =
         greenhousesRepository

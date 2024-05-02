@@ -13,6 +13,7 @@ import org.greenhouse.repository.user.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +40,7 @@ public class UserService {
     }
 
     // получение информации о пользователе
+    @Transactional(readOnly = true)
     public UserDto getInfo(Integer userId) {
         Optional<User> user = repository.findById(userId);
         if (user.isEmpty()) {

@@ -10,6 +10,7 @@ import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.sensor.SensorsRepository;
 import org.greenhouse.repository.sensor.SensorsTypeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class SensorService {
 
   // TODO валидация
   // добавление датчика
+  @Transactional
   public SensorsDto createSensor(SensorsDto sensorDto) {
     Sensors sensor = new Sensors();
     sensor.setIsActive(sensorDto.isActive());
@@ -44,6 +46,7 @@ public class SensorService {
   }
 
   // удаление датчика
+  @Transactional
   public void deleteSensorById(Long id) {
     if (!sensorRepository.existsById(id)) {
       throw new SensorNotFoundException("Sensor not found with ID: " + id);
@@ -52,6 +55,7 @@ public class SensorService {
   }
 
   // получение информации о датчике
+  @Transactional(readOnly = true)
   public SensorsDto getSensorById(Long id) {
     Sensors sensor =
         sensorRepository

@@ -10,6 +10,7 @@ import org.greenhouse.exception.message.SeedBedNotFoundException;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class SeedBedService {
 
   // TODO валидация
   // добавление грядки
+  @Transactional
   public SeedBedDto createSeedBed(SeedBedDto seedBedDto) {
     SeedBeds seedBeds = new SeedBeds();
     updateSeedBedsFromDto(seedBeds, seedBedDto);
@@ -27,6 +29,7 @@ public class SeedBedService {
   }
 
   // изменить конфигурацию грядки
+  @Transactional
   public SeedBedDto updateSeedBed(Long id, SeedBedDto updatedSeedBedDto) {
     SeedBeds seedBeds =
         seedBedRepository
@@ -54,6 +57,7 @@ public class SeedBedService {
   }
 
   // получение инфо о грядке
+  @Transactional(readOnly = true)
   public SeedBedDto getSeedBedById(Long id) {
     SeedBeds seedBeds =
         seedBedRepository
@@ -63,6 +67,7 @@ public class SeedBedService {
   }
 
   // Получение id всех грядок по id теплицы
+  @Transactional(readOnly = true)
   public List<Long> getSeedBedIdsByGreenhouseId(Long greenhouseId) {
     Greenhouses greenhouses =
         greenhouseRepository
@@ -75,6 +80,8 @@ public class SeedBedService {
     return seedBeds.stream().map(SeedBeds::getId).toList();
   }
 
+  // удаление грядки по ее id
+  @Transactional
   public void deleteSeedBedById(Long id) {
     if (!seedBedRepository.existsById(id)) {
       throw new SeedBedNotFoundException("SeedBed not found with ID: " + id);

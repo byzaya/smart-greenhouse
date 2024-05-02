@@ -6,6 +6,7 @@ import org.greenhouse.entity.sensor.SensorType;
 import org.greenhouse.exception.message.SensorTypeNotFoundException;
 import org.greenhouse.repository.sensor.SensorsTypeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class SensorTypeService {
 
   // TODO валидация
   // добавление типа датчика
+  @Transactional
   public SensorTypeDto createSensorType(SensorTypeDto sensorTypeDto) {
     SensorType sensorType = new SensorType();
     sensorType.setSensorName(sensorTypeDto.sensorName());
@@ -23,6 +25,7 @@ public class SensorTypeService {
   }
 
   // получение типа датчика
+  @Transactional(readOnly = true)
   public SensorTypeDto getSensorTypeById(Long id) {
     SensorType sensorType =
         sensorTypeRepository
