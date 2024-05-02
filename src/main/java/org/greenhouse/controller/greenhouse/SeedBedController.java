@@ -4,8 +4,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.greenhouse.SeedBedDto;
 import org.greenhouse.service.greenhouse.SeedBedService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,32 +20,27 @@ public class SeedBedController {
   private final SeedBedService seedBedService;
 
   @PostMapping("/add")
-  public ResponseEntity<SeedBedDto> createSeedBed(@RequestBody SeedBedDto seedBedDto) {
-    SeedBedDto createdSeedBed = seedBedService.createSeedBed(seedBedDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdSeedBed);
+  public SeedBedDto createSeedBed(@RequestBody SeedBedDto seedBedDto) {
+    return seedBedService.createSeedBed(seedBedDto);
   }
 
   @PutMapping("/update/{id}")
-  public ResponseEntity<SeedBedDto> updateSeedBed(@PathVariable Long id, @RequestBody SeedBedDto updatedSeedBedDto) {
-    SeedBedDto updatedSeedBed = seedBedService.updateSeedBed(id, updatedSeedBedDto);
-    return ResponseEntity.ok(updatedSeedBed);
+  public SeedBedDto updateSeedBed(@PathVariable Long id, @RequestBody SeedBedDto updatedSeedBedDto) {
+    return seedBedService.updateSeedBed(id, updatedSeedBedDto);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<SeedBedDto> getSeedBedById(@PathVariable Long id) {
-    SeedBedDto seedBedDto = seedBedService.getSeedBedById(id);
-    return ResponseEntity.ok(seedBedDto);
+  public SeedBedDto getSeedBedById(@PathVariable Long id) {
+    return seedBedService.getSeedBedById(id);
   }
 
   @GetMapping("/greenhouses/{greenhouseId}")
-  public ResponseEntity<List<Long>> getSeedBedIdsByGreenhouseId(@PathVariable Long greenhouseId) {
-    List<Long> seedBedIds = seedBedService.getSeedBedIdsByGreenhouseId(greenhouseId);
-    return ResponseEntity.ok(seedBedIds);
+  public List<Long> getSeedBedIdsByGreenhouseId(@PathVariable Long greenhouseId) {
+    return seedBedService.getSeedBedIdsByGreenhouseId(greenhouseId);
   }
 
   @DeleteMapping("/seedbeds/{id}")
-  public ResponseEntity<Void> deleteSeedBedById(@PathVariable Long id) {
+  public void deleteSeedBedById(@PathVariable Long id) {
     seedBedService.deleteSeedBedById(id);
-    return ResponseEntity.noContent().build();
   }
 }

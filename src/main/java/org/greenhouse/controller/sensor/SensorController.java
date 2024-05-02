@@ -3,8 +3,6 @@ package org.greenhouse.controller.sensor;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.sensor.SensorsDto;
 import org.greenhouse.service.sensor.SensorService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,20 +18,17 @@ public class SensorController {
 
   private final SensorService sensorService;
   @PostMapping("/add")
-  public ResponseEntity<SensorsDto> createSensor(@RequestBody SensorsDto sensorDto) {
-    SensorsDto createdSensor = sensorService.createSensor(sensorDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdSensor);
+  public SensorsDto createSensor(@RequestBody SensorsDto sensorDto) {
+    return sensorService.createSensor(sensorDto);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<SensorsDto> getSensorById(@PathVariable Long id) {
-    SensorsDto sensorDto = sensorService.getSensorById(id);
-    return ResponseEntity.ok(sensorDto);
+  public SensorsDto getSensorById(@PathVariable Long id) {
+    return sensorService.getSensorById(id);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteSensorById(@PathVariable Long id) {
+  public void deleteSensorById(@PathVariable Long id) {
     sensorService.deleteSensorById(id);
-    return ResponseEntity.noContent().build();
   }
 }

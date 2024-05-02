@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.greenhouse.GreenhouseDto;
 import org.greenhouse.service.greenhouse.GreenhouseService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,26 +20,22 @@ public class GreenhouseController {
   private final GreenhouseService greenhouseService;
 
   @PostMapping("/add")
-  public ResponseEntity<GreenhouseDto> createGreenhouse(@RequestBody GreenhouseDto greenhouseDto) {
-    GreenhouseDto result = greenhouseService.createGreenhouse(greenhouseDto);
-    return ResponseEntity.ok(result);
+  public GreenhouseDto createGreenhouse(@RequestBody GreenhouseDto greenhouseDto) {
+    return greenhouseService.createGreenhouse(greenhouseDto);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<GreenhouseDto> getGreenhouse(@PathVariable Long id) {
-    GreenhouseDto result = greenhouseService.getGreenhouse(id);
-    return ResponseEntity.ok(result);
+  public GreenhouseDto getGreenhouse(@PathVariable Long id) {
+    return greenhouseService.getGreenhouse(id);
   }
 
   @GetMapping("/user/{userId}")
-  public ResponseEntity<List<Long>> getGreenhouseIdsByUserId(@PathVariable Integer userId) {
-    List<Long> result = greenhouseService.getGreenhouseIdsByUserId(userId);
-    return ResponseEntity.ok(result);
+  public List<Long> getGreenhouseIdsByUserId(@PathVariable Integer userId) {
+    return greenhouseService.getGreenhouseIdsByUserId(userId);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteGreenhouse(@PathVariable Long id) {
+  public void deleteGreenhouse(@PathVariable Long id) {
     greenhouseService.deleteGreenhouse(id);
-    return ResponseEntity.noContent().build();
   }
 }
