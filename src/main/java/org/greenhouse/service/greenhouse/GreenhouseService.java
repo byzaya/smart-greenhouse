@@ -1,7 +1,6 @@
 package org.greenhouse.service.greenhouse;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.greenhouse.GreenhouseDto;
@@ -28,45 +27,54 @@ public class GreenhouseService {
     Greenhouses greenhouse = new Greenhouses();
     greenhouse.setLocation(greenhouseDto.location());
     greenhouse.setGreenhouseName(greenhouseDto.greenhouseName());
-    Optional<User> user = userRepository.findById(greenhouseDto.user().id());
-    if (user.isEmpty()) {
-      throw new UserNotFoundException("User not found");
-    }
-    greenhouse.setUser(user.get());
-    Optional<Configurations> configurations =
-        configurationRepository.findById(greenhouseDto.configuration().id());
-    if (configurations.isEmpty()) {
-      throw new ConfigurationNotFoundException("Configuration not found");
-    }
-    greenhouse.setConfiguration(configurations.get());
+    User user =
+        userRepository
+            .findById(greenhouseDto.user().id())
+            .orElseThrow(
+                () ->
+                    new UserNotFoundException(
+                        "User not found with ID: " + greenhouseDto.user().id()));
+    greenhouse.setUser(user);
+    Configurations configurations =
+        configurationRepository
+            .findById(greenhouseDto.configuration().id())
+            .orElseThrow(
+                () ->
+                    new ConfigurationNotFoundException(
+                        "Configuration not found with ID: " + greenhouseDto.configuration().id()));
+    greenhouse.setConfiguration(configurations);
     Greenhouses savedGreenhouse = greenhousesRepository.save(greenhouse);
     return GreenhouseDto.fromGreenhouse(savedGreenhouse);
   }
 
   // получение инфо о теплице по ее id
   public GreenhouseDto getGreenhouse(Long greenhouseId) {
-    Optional<Greenhouses> greenhouse = greenhousesRepository.findById(greenhouseId);
-    if (greenhouse.isEmpty()) {
-      throw new GreenhouseNotFoundException("Greenhouse not found by this id");
-    }
-    return GreenhouseDto.fromGreenhouse(greenhouse.get());
+    Greenhouses greenhouse =
+        greenhousesRepository
+            .findById(greenhouseId)
+            .orElseThrow(
+                () ->
+                    new GreenhouseNotFoundException(
+                        "Greenhouse not found with ID: " + greenhouseId));
+    return GreenhouseDto.fromGreenhouse(greenhouse);
   }
 
   // получение всех id теплиц по id пользователя
   public List<Long> getGreenhouseIdsByUserId(Integer userId) {
-    Optional<User> user = userRepository.findById(userId);
-    if (user.isEmpty()) {
-      throw new UserNotFoundException("User not found");
-    }
-    return user.get().getGreenhouse().stream().map(Greenhouses::getId).collect(Collectors.toList());
+    User user =
+        userRepository
+            .findById(userId)
+            .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
+    return user.getGreenhouse().stream().map(Greenhouses::getId).collect(Collectors.toList());
   }
 
   // удаление теплицы по ее id
   public void deleteGreenhouse(Long id) {
-    Optional<Greenhouses> greenhouse = greenhousesRepository.findById(id);
-    if (greenhouse.isEmpty()) {
-      throw new GreenhouseNotFoundException("Greenhouse not found by this id");
-    }
-    greenhousesRepository.delete(greenhouse.get());
+    Greenhouses greenhouse =
+        greenhousesRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new GreenhouseNotFoundException("Greenhouse not found with ID: " + id));
+    greenhousesRepository.delete(greenhouse);
   }
 }
