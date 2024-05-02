@@ -57,7 +57,7 @@ public class ConfigurationController {
       summary = "Получение конфигурации",
       description = "Просмотр конфигурации теплицы по ее id")
   @CrossOrigin(origins = "http://localhost:4200")
-  @GetMapping("/configurations/{id}")
+  @GetMapping("/{id}")
   public ConfigurationDto getConfigurationById(@PathVariable Long id) {
     return configurationService.getConfigurationById(id);
   }

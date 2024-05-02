@@ -2,9 +2,12 @@ package org.greenhouse.service.greenhouse;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.greenhouse.ConfigurationDto;
 import org.greenhouse.dto.greenhouse.SeedBedDto;
+import org.greenhouse.entity.greenhouse.Configurations;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.greenhouse.SeedBeds;
+import org.greenhouse.exception.message.ConfigurationNotFoundException;
 import org.greenhouse.exception.message.GreenhouseNotFoundException;
 import org.greenhouse.exception.message.SeedBedNotFoundException;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
@@ -89,5 +92,15 @@ public class SeedBedService {
     seedBedRepository.deleteById(id);
   }
 
-  // TODO isAuto вкл выкл
+  // переключение isAuto конфигурации
+  @Transactional
+  public SeedBedDto changeAutoMode(Long id, Boolean isAuto) {
+    SeedBeds seedBeds =
+        seedBedRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new SeedBedNotFoundException("SeedBed not found with ID: " + id));
+    seedBeds.setIsAuto(isAuto);
+    return SeedBedDto.fromSeedBeds(seedBedRepository.save(seedBeds));
+  }
 }

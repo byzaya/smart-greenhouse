@@ -9,6 +9,7 @@ import org.greenhouse.service.greenhouse.SeedBedService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,8 +64,17 @@ public class SeedBedController {
       summary = "Удаление грядки",
       description = "Удаление грядки по ее id")
   @CrossOrigin(origins = "http://localhost:4200")
-  @DeleteMapping("/seedbeds/{id}")
+  @DeleteMapping("/{id}")
   public void deleteSeedBedById(@PathVariable Long id) {
     seedBedService.deleteSeedBedById(id);
+  }
+
+  @Operation(
+      summary = "Вкл/выкл автоуправление",
+      description = "Вкл/выкл автоуправление в конфигурации грядки")
+  @CrossOrigin(origins = "http://localhost:4200")
+  @PatchMapping("/{id}/auto-mode")
+  public SeedBedDto changeAutoMode(@PathVariable Long id, @RequestBody Boolean isAuto) {
+    return seedBedService.changeAutoMode(id, isAuto);
   }
 }

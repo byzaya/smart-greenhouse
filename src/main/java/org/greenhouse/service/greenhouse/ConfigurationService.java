@@ -57,8 +57,7 @@ public class ConfigurationService {
             .orElseThrow(
                 () -> new ConfigurationNotFoundException("Configuration not found with ID: " + id));
     configuration.setIsAuto(isAuto);
-    Configurations savedConfiguration = configurationRepository.save(configuration);
-    return ConfigurationDto.fromConfiguration(savedConfiguration);
+    return ConfigurationDto.fromConfiguration(configurationRepository.save(configuration));
   }
 
   // получение конфигурации по id
