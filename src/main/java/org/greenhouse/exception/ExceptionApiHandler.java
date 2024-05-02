@@ -6,6 +6,8 @@ import org.greenhouse.exception.message.GreenhouseNotFoundException;
 import org.greenhouse.exception.message.InvalidEmailException;
 import org.greenhouse.exception.message.PasswordNotSameException;
 import org.greenhouse.exception.message.SeedBedNotFoundException;
+import org.greenhouse.exception.message.SensorNotFoundException;
+import org.greenhouse.exception.message.SensorTypeNotFoundException;
 import org.greenhouse.exception.message.UserNotFoundException;
 import org.greenhouse.exception.message.WrongPasswordException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,8 +39,12 @@ public class ExceptionApiHandler {
     return new CustomErrorMessage("Seed bed is not found by id", e.getMessage());
   }
 
-  public CustomErrorMessage sensorNotFoundException(SeedBedNotFoundException e) {
+  public CustomErrorMessage sensorNotFoundException(SensorNotFoundException e) {
     return new CustomErrorMessage("Sensor is not found by id", e.getMessage());
+  }
+
+  public CustomErrorMessage sensorTypeNotFoundException(SensorTypeNotFoundException e) {
+    return new CustomErrorMessage("Sensor type is not found by id", e.getMessage());
   }
 
   public CustomErrorMessage userNotFoundException(UserNotFoundException e) {
