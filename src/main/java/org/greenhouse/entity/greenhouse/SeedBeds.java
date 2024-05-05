@@ -33,11 +33,11 @@ public class SeedBeds {
   private String seedbedName; // название/номер грядки
 
   @Column(name = "is_auto", nullable = false)
-  private Boolean
-      isAuto; // автоматический режим вкл/выкл - если вкл, то программа автоматически поддерживает
-              // все параметры
+  private Boolean isAuto; // автоматический режим вкл/выкл - если вкл, то программа автоматически поддерживает все параметры
+                          // если выкл - пользователь сам управляет параметрами грядки
 
-  // если выкл - пользователь сам управляет параметрами грядки
+  @Column(name = "watering_enabled", nullable = false)
+  private Boolean wateringEnabled; // вкл/выкл полив
 
   @Column(name = "watering_duration", nullable = false)
   private Integer wateringDuration; // длительность полива
@@ -57,7 +57,4 @@ public class SeedBeds {
 
   @OneToMany(mappedBy = "seedBed", cascade = CascadeType.ALL)
   private List<Humidity> humidity = new ArrayList<>();
-
-  @OneToMany(mappedBy = "seedBed", cascade = CascadeType.ALL)
-  private List<ControlSeedBed> controlSeedBed = new ArrayList<>();
 }

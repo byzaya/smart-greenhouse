@@ -42,6 +42,7 @@ public class SeedBedService {
   private void updateSeedBedsFromDto(SeedBeds seedBeds, SeedBedDto seedBedDto) {
     seedBeds.setSeedbedName(seedBedDto.seedbedName());
     seedBeds.setIsAuto(seedBedDto.isAuto());
+    seedBeds.setWateringEnabled(seedBedDto.wateringEnabled());
     seedBeds.setWateringDuration(seedBedDto.wateringDuration());
     seedBeds.setWateringFrequency(seedBedDto.wateringFrequency());
     seedBeds.setMinHumidity(seedBedDto.minHumidity());
