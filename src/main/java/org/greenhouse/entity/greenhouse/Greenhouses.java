@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +43,11 @@ public class Greenhouses {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
-  private List<Configurations> configurations = new ArrayList<>();
+  @OneToOne(mappedBy = "greenhouse", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Configurations configuration;
+
+  @OneToOne(mappedBy = "greenhouse", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Control control;
 
   @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
   private List<Light> light = new ArrayList<>();
@@ -53,9 +57,6 @@ public class Greenhouses {
 
   @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
   private List<SeedBeds> seedBeds = new ArrayList<>();
-
-  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
-  private List<Control> control = new ArrayList<>();
 
   @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
   private List<Sensors> sensors = new ArrayList<>();

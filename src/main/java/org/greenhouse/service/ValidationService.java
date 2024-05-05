@@ -8,8 +8,10 @@ import org.greenhouse.entity.greenhouse.SeedBeds;
 import org.greenhouse.entity.sensor.SensorType;
 import org.greenhouse.entity.sensor.Sensors;
 import org.greenhouse.entity.user.User;
-import org.greenhouse.exception.message.ConfigurationNotFoundException;
-import org.greenhouse.exception.message.UserNotFoundException;
+import org.greenhouse.exception.message.not_found_message.ConfigurationNotFoundException;
+import org.greenhouse.exception.message.IsAutoFalseException;
+import org.greenhouse.exception.message.IsAutoTrueException;
+import org.greenhouse.exception.message.not_found_message.UserNotFoundException;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
 import org.greenhouse.repository.greenhouse.ControlRepository;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
@@ -97,5 +99,24 @@ public class ValidationService {
             () ->
                 new ConfigurationNotFoundException(
                     "Control not found with ID: " + controlId));
+  }
+
+  @Transactional(readOnly = true)
+  public Boolean checkIsAutoGreenhouse(Long configurationId) {
+    return getConfigurationOrThrow(configurationId).getIsAuto();
+  }
+
+  @Transactional(readOnly = true)
+  public void isAutoGreenhouseOrThrow(Long configurationId) {
+    if (!checkIsAutoGreenhouse(configurationId)) {
+      throw new IsAutoFalseException("Auto configuration is disabled, turn it on to use auto control");
+    }
+  }
+
+  @Transactional(readOnly = true)
+  public void isNotAutoGreenhouseOrThrow(Long configurationId) {
+    if (checkIsAutoGreenhouse(configurationId)) {
+      throw new IsAutoTrueException("Auto configuration is enabled, turn it off to use manual control");
+    }
   }
 }

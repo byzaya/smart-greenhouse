@@ -1,14 +1,16 @@
 package org.greenhouse.exception;
 
-import org.greenhouse.exception.message.ConfigurationNotFoundException;
-import org.greenhouse.exception.message.ControlNotFoundException;
-import org.greenhouse.exception.message.GreenhouseNotFoundException;
+import org.greenhouse.exception.message.not_found_message.ConfigurationNotFoundException;
+import org.greenhouse.exception.message.not_found_message.ControlNotFoundException;
+import org.greenhouse.exception.message.not_found_message.GreenhouseNotFoundException;
 import org.greenhouse.exception.message.InvalidEmailException;
+import org.greenhouse.exception.message.IsAutoFalseException;
+import org.greenhouse.exception.message.IsAutoTrueException;
 import org.greenhouse.exception.message.PasswordNotSameException;
-import org.greenhouse.exception.message.SeedBedNotFoundException;
-import org.greenhouse.exception.message.SensorNotFoundException;
-import org.greenhouse.exception.message.SensorTypeNotFoundException;
-import org.greenhouse.exception.message.UserNotFoundException;
+import org.greenhouse.exception.message.not_found_message.SeedBedNotFoundException;
+import org.greenhouse.exception.message.not_found_message.SensorNotFoundException;
+import org.greenhouse.exception.message.not_found_message.SensorTypeNotFoundException;
+import org.greenhouse.exception.message.not_found_message.UserNotFoundException;
 import org.greenhouse.exception.message.WrongPasswordException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -78,4 +80,97 @@ public class ExceptionApiHandler {
   public CustomErrorMessage wrongPasswordException(WrongPasswordException e) {
     return new CustomErrorMessage("Input wrong password", e.getMessage());
   }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(IsAutoFalseException.class)
+  public CustomErrorMessage isAutoFalseException(IsAutoFalseException e) {
+    return new CustomErrorMessage(
+        "Auto configuration is disabled, turn it on to use auto control", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(IsAutoTrueException.class)
+  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+    return new CustomErrorMessage(
+        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+  }
+
+  // ошибки инфо об устройствах
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
+//
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IsAutoTrueException.class)
+//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
+//    return new CustomErrorMessage(
+//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
+//  }
 }

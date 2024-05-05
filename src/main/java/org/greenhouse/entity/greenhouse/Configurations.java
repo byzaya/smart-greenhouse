@@ -7,12 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.greenhouse.entity.user.User;
 
 @Entity
 @Getter
@@ -44,7 +44,7 @@ public class Configurations {
   @Column(name = "max_light", nullable = false)
   private Integer maxLight; // максимальный допустимый уровень освещенности
 
-  @ManyToOne
-  @JoinColumn(name = "greenhouse_id", nullable = false)
+  @OneToOne
+  @JoinColumn(name = "greenhouse_id", nullable = false, unique = true)
   private Greenhouses greenhouse;
 }

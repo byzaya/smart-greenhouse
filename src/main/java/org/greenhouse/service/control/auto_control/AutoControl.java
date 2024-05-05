@@ -1,4 +1,4 @@
-package org.greenhouse.service.control.autoControl;
+package org.greenhouse.service.control.auto_control;
 
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;

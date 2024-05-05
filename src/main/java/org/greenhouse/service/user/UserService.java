@@ -6,7 +6,6 @@ import org.greenhouse.dto.auth.ChangePasswordRequest;
 import org.greenhouse.dto.user.UserDto;
 import org.greenhouse.entity.user.User;
 import org.greenhouse.exception.message.PasswordNotSameException;
-import org.greenhouse.exception.message.UserNotFoundException;
 import org.greenhouse.exception.message.WrongPasswordException;
 import org.greenhouse.repository.user.UserRepository;
 import org.greenhouse.service.ValidationService;
