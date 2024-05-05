@@ -18,8 +18,7 @@ public record GreenhouseDto(
     @JsonProperty("temperature") List<TemperatureDto> temperature,
     @JsonProperty("seedBeds") List<SeedBedDto> seedBeds,
     @JsonProperty("control") List<ControlDto> control,
-    @JsonProperty("sensors") List<SensorsDto> sensors
-) {
+    @JsonProperty("sensors") List<SensorsDto> sensors) {
   public static GreenhouseDto fromGreenhouse(Greenhouses greenhouse) {
     return new GreenhouseDto(
         greenhouse.getId(),
@@ -31,8 +30,6 @@ public record GreenhouseDto(
         greenhouse.getTemperature().stream().map(TemperatureDto::fromTemperature).toList(),
         greenhouse.getSeedBeds().stream().map(SeedBedDto::fromSeedBeds).toList(),
         greenhouse.getControl().stream().map(ControlDto::fromControl).toList(),
-        greenhouse.getSensors().stream().map(SensorsDto::fromSensors).toList()
-    );
+        greenhouse.getSensors().stream().map(SensorsDto::fromSensors).toList());
   }
 }
-

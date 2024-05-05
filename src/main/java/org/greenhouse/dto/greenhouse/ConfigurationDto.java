@@ -12,8 +12,7 @@ public record ConfigurationDto(
     @JsonProperty("maxTemperature") Integer maxTemperature,
     @JsonProperty("minLight") Integer minLight,
     @JsonProperty("maxLight") Integer maxLight,
-    @JsonProperty("user") UserDto user
-) {
+    @JsonProperty("user") UserDto user) {
   public static ConfigurationDto fromConfiguration(Configurations configuration) {
     return new ConfigurationDto(
         configuration.getId(),
@@ -23,7 +22,6 @@ public record ConfigurationDto(
         configuration.getMaxTemperature(),
         configuration.getMinLight(),
         configuration.getMaxLight(),
-        UserDto.fromUser(configuration.getUser())
-    );
+        UserDto.fromUser(configuration.getUser()));
   }
 }

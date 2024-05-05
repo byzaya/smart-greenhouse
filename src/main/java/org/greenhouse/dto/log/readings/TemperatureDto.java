@@ -11,15 +11,13 @@ public record TemperatureDto(
     @JsonProperty("value") Integer value,
     @JsonProperty("receiveTime") Timestamp receiveTime,
     @JsonProperty("receiveLogs") ReceiveLogDto receiveLogs,
-    @JsonProperty("greenhouse") GreenhouseDto greenhouse
-) {
+    @JsonProperty("greenhouse") GreenhouseDto greenhouse) {
   public static TemperatureDto fromTemperature(Temperature temperature) {
     return new TemperatureDto(
         temperature.getId(),
         temperature.getValue(),
         temperature.getReceiveTime(),
         ReceiveLogDto.fromReceiveLogs(temperature.getReceiveLogs()),
-        GreenhouseDto.fromGreenhouse(temperature.getGreenhouse())
-    );
+        GreenhouseDto.fromGreenhouse(temperature.getGreenhouse()));
   }
 }

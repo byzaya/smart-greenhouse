@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.greenhouse.entity.greenhouse.Greenhouses;
-import org.greenhouse.entity.log.Topics;
 
 @Entity
 @Getter

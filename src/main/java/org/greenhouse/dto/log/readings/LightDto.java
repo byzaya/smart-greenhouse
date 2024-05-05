@@ -11,15 +11,13 @@ public record LightDto(
     @JsonProperty("value") Integer value,
     @JsonProperty("receiveTime") Timestamp receiveTime,
     @JsonProperty("receiveLogs") ReceiveLogDto receiveLogs,
-    @JsonProperty("greenhouse") GreenhouseDto greenhouse
-) {
+    @JsonProperty("greenhouse") GreenhouseDto greenhouse) {
   public static LightDto fromLight(Light light) {
     return new LightDto(
         light.getId(),
         light.getValue(),
         light.getReceiveTime(),
         ReceiveLogDto.fromReceiveLogs(light.getReceiveLogs()),
-        GreenhouseDto.fromGreenhouse(light.getGreenhouse())
-    );
+        GreenhouseDto.fromGreenhouse(light.getGreenhouse()));
   }
 }

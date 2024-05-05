@@ -21,7 +21,8 @@ public class ExceptionApiHandler {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   @ExceptionHandler(ConfigurationNotFoundException.class)
   public CustomErrorMessage configurationNotFoundException(ConfigurationNotFoundException e) {
-    return new CustomErrorMessage("Configuration for greenhouse is not found by id", e.getMessage());
+    return new CustomErrorMessage(
+        "Configuration for greenhouse is not found by id", e.getMessage());
   }
 
   @ResponseStatus(HttpStatus.NOT_FOUND)

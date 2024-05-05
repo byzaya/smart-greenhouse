@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.greenhouse.entity.log.ReceiveLogs;
 import org.greenhouse.entity.log.readings.Humidity;
 
 @Entity
@@ -34,8 +33,11 @@ public class SeedBeds {
   private String seedbedName; // название/номер грядки
 
   @Column(name = "is_auto", nullable = false)
-  private Boolean isAuto; // автоматический режим вкл/выкл - если вкл, то программа автоматически поддерживает все параметры
-                          // если выкл - пользователь сам управляет параметрами грядки
+  private Boolean
+      isAuto; // автоматический режим вкл/выкл - если вкл, то программа автоматически поддерживает
+              // все параметры
+
+  // если выкл - пользователь сам управляет параметрами грядки
 
   @Column(name = "watering_duration", nullable = false)
   private Integer wateringDuration; // длительность полива
@@ -56,4 +58,3 @@ public class SeedBeds {
   @OneToMany(mappedBy = "seedBed", cascade = CascadeType.ALL)
   private List<Humidity> humidity = new ArrayList<>();
 }
-

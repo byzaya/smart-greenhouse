@@ -11,15 +11,13 @@ public record HumidityDto(
     @JsonProperty("value") Integer value,
     @JsonProperty("receiveTime") Timestamp receiveTime,
     @JsonProperty("receiveLogs") ReceiveLogDto receiveLogs,
-    @JsonProperty("seedBed") SeedBedDto seedBed
-) {
+    @JsonProperty("seedBed") SeedBedDto seedBed) {
   public static HumidityDto fromHumidity(Humidity humidity) {
     return new HumidityDto(
         humidity.getId(),
         humidity.getValue(),
         humidity.getReceiveTime(),
         ReceiveLogDto.fromReceiveLogs(humidity.getReceiveLogs()),
-        SeedBedDto.fromSeedBeds(humidity.getSeedBed())
-    );
+        SeedBedDto.fromSeedBeds(humidity.getSeedBed()));
   }
 }

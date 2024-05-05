@@ -38,7 +38,8 @@ public class SeedBedController {
       description = "Изменение грядки (в том числе ее конфигурации) по ее id")
   @CrossOrigin(origins = "http://localhost:4200")
   @PutMapping("/update/{id}")
-  public SeedBedDto updateSeedBed(@PathVariable Long id, @RequestBody SeedBedDto updatedSeedBedDto) {
+  public SeedBedDto updateSeedBed(
+      @PathVariable Long id, @RequestBody SeedBedDto updatedSeedBedDto) {
     return seedBedService.updateSeedBed(id, updatedSeedBedDto);
   }
 
@@ -60,9 +61,7 @@ public class SeedBedController {
     return seedBedService.getSeedBedIdsByGreenhouseId(greenhouseId);
   }
 
-  @Operation(
-      summary = "Удаление грядки",
-      description = "Удаление грядки по ее id")
+  @Operation(summary = "Удаление грядки", description = "Удаление грядки по ее id")
   @CrossOrigin(origins = "http://localhost:4200")
   @DeleteMapping("/{id}")
   public void deleteSeedBedById(@PathVariable Long id) {

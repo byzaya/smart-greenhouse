@@ -19,8 +19,10 @@ public class JwtService {
 
   @Value("${application.security.jwt.secret-key}")
   private String secretKey;
+
   @Value("${application.security.jwt.expiration}")
   private long jwtExpiration;
+
   @Value("${application.security.jwt.refresh-token.expiration}")
   private long refreshExpiration;
 
@@ -41,34 +43,25 @@ public class JwtService {
   }
 
   // генерирует токен с дополнительными утверждениями
-  public String generateToken(
-      Map<String, Object> extraClaims,
-      UserDetails userDetails
-  ) {
+  public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
     return buildToken(extraClaims, userDetails, jwtExpiration);
   }
 
   // генерирует токен обновления на основе предоставленных userDetails
-  public String generateRefreshToken(
-      UserDetails userDetails
-  ) {
+  public String generateRefreshToken(UserDetails userDetails) {
     return buildToken(new HashMap<>(), userDetails, refreshExpiration);
   }
 
   // метод строит токен JWT с указанными extraClaims, userDetails и временем действия
   private String buildToken(
-          Map<String, Object> extraClaims,
-          UserDetails userDetails,
-          long expiration
-  ) {
-    return Jwts
-            .builder()
-            .setClaims(extraClaims)
-            .setSubject(userDetails.getUsername())
-            .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + expiration))
-            .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-            .compact();
+      Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
+    return Jwts.builder()
+        .setClaims(extraClaims)
+        .setSubject(userDetails.getUsername())
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + expiration))
+        .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+        .compact();
   }
 
   // метод проверяет, является ли указанный токен действительным для предоставленных userDetails

@@ -21,12 +21,11 @@ public class LogoutController {
 
   private final LogoutService logoutService;
 
-  @Operation(
-      summary = "Выход из аккаунта",
-      description = "Выход из аккаунта пользователя")
+  @Operation(summary = "Выход из аккаунта", description = "Выход из аккаунта пользователя")
   @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping
-  public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+  public ResponseEntity<String> logout(
+      HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
     logoutService.logout(request, response, authentication);
     return ResponseEntity.ok("Logged out successfully");
   }

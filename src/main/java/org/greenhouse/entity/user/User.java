@@ -33,9 +33,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "users")
 public class User implements UserDetails {
 
-  @Id
-  @GeneratedValue
-  private Integer id;
+  @Id @GeneratedValue private Integer id;
 
   @Column(name = "email", nullable = false, unique = true)
   private String email; // имя пользователя == email

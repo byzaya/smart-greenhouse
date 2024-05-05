@@ -9,15 +9,13 @@ public record SendLogDto(
     @JsonProperty("reply") Boolean reply,
     @JsonProperty("command") Integer command,
     @JsonProperty("sendTime") Timestamp sendTime,
-    @JsonProperty("topic") TopicDto topic
-) {
+    @JsonProperty("topic") TopicDto topic) {
   public static SendLogDto fromSendLogs(SendLogs sendLogs) {
     return new SendLogDto(
         sendLogs.getId(),
         sendLogs.getReply(),
         sendLogs.getCommand(),
         sendLogs.getSendTime(),
-        TopicDto.fromTopics(sendLogs.getTopic())
-    );
+        TopicDto.fromTopics(sendLogs.getTopic()));
   }
 }

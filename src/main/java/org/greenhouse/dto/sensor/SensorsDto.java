@@ -9,15 +9,13 @@ public record SensorsDto(
     @JsonProperty("isActive") Boolean isActive,
     @JsonProperty("sensorNumber") Integer sensorNumber,
     @JsonProperty("sensorType") SensorTypeDto sensorType,
-    @JsonProperty("greenhouse") GreenhouseDto greenhouse
-) {
+    @JsonProperty("greenhouse") GreenhouseDto greenhouse) {
   public static SensorsDto fromSensors(Sensors sensors) {
     return new SensorsDto(
         sensors.getId(),
         sensors.getIsActive(),
         sensors.getSensorNumber(),
         SensorTypeDto.fromSensorType(sensors.getSensorType()),
-        GreenhouseDto.fromGreenhouse(sensors.getGreenhouse())
-    );
+        GreenhouseDto.fromGreenhouse(sensors.getGreenhouse()));
   }
 }

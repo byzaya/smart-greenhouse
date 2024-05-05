@@ -10,8 +10,7 @@ public record ControlDto(
     @JsonProperty("lightEnabled") Boolean lightEnabled,
     @JsonProperty("fanEnabled") Boolean fanEnabled,
     @JsonProperty("heaterEnabled") Boolean heaterEnabled,
-    @JsonProperty("greenhouse") GreenhouseDto greenhouse
-) {
+    @JsonProperty("greenhouse") GreenhouseDto greenhouse) {
   public static ControlDto fromControl(Control control) {
     return new ControlDto(
         control.getId(),
@@ -20,7 +19,6 @@ public record ControlDto(
         control.getLightEnabled(),
         control.getFanEnabled(),
         control.getHeaterEnabled(),
-        GreenhouseDto.fromGreenhouse(control.getGreenhouse())
-    );
+        GreenhouseDto.fromGreenhouse(control.getGreenhouse()));
   }
 }

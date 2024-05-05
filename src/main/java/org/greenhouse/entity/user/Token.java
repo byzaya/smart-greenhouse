@@ -27,9 +27,7 @@ import org.greenhouse.entity.enums.TokenType;
 @Table(name = "tokens")
 public class Token {
 
-  @Id
-  @GeneratedValue
-  public Integer id;
+  @Id @GeneratedValue public Integer id;
 
   @Column(name = "token", unique = true)
   public String token; // токен

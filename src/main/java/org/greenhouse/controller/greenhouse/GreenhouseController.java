@@ -23,18 +23,14 @@ public class GreenhouseController {
 
   private final GreenhouseService greenhouseService;
 
-  @Operation(
-      summary = "Добавление теплицы",
-      description = "Создание новой теплицы пользователем")
+  @Operation(summary = "Добавление теплицы", description = "Создание новой теплицы пользователем")
   @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/add")
   public GreenhouseDto createGreenhouse(@RequestBody GreenhouseDto greenhouseDto) {
     return greenhouseService.createGreenhouse(greenhouseDto);
   }
 
-  @Operation(
-      summary = "Получение теплицы",
-      description = "Просмотр информации о теплице по ее id")
+  @Operation(summary = "Получение теплицы", description = "Просмотр информации о теплице по ее id")
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/{id}")
   public GreenhouseDto getGreenhouse(@PathVariable Long id) {
@@ -50,9 +46,7 @@ public class GreenhouseController {
     return greenhouseService.getGreenhouseIdsByUserId(userId);
   }
 
-  @Operation(
-      summary = "Удаление теплицы",
-      description = "Удаление теплицы по ее id")
+  @Operation(summary = "Удаление теплицы", description = "Удаление теплицы по ее id")
   @CrossOrigin(origins = "http://localhost:4200")
   @DeleteMapping("/{id}")
   public void deleteGreenhouse(@PathVariable Long id) {

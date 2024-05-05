@@ -33,9 +33,6 @@ public class AutoControl {
 
   */
 
-
   @Scheduled
-  public void controlAll(Long greenhouseId) {
-
-  }
+  public void controlAll(Long greenhouseId) {}
 }

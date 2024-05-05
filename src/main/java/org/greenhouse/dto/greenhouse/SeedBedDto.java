@@ -14,8 +14,7 @@ public record SeedBedDto(
     @JsonProperty("minHumidity") Integer minHumidity,
     @JsonProperty("maxHumidity") Integer maxHumidity,
     @JsonProperty("greenhouse") GreenhouseDto greenhouse,
-    @JsonProperty("humidity") List<HumidityDto> humidity
-) {
+    @JsonProperty("humidity") List<HumidityDto> humidity) {
   public static SeedBedDto fromSeedBeds(SeedBeds seedBeds) {
     return new SeedBedDto(
         seedBeds.getId(),
@@ -26,7 +25,6 @@ public record SeedBedDto(
         seedBeds.getMinHumidity(),
         seedBeds.getMaxHumidity(),
         GreenhouseDto.fromGreenhouse(seedBeds.getGreenhouse()),
-        seedBeds.getHumidity().stream().map(HumidityDto::fromHumidity).toList()
-    );
+        seedBeds.getHumidity().stream().map(HumidityDto::fromHumidity).toList());
   }
 }

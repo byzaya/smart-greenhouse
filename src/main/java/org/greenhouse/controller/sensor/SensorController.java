@@ -31,18 +31,14 @@ public class SensorController {
     return sensorService.createSensor(sensorDto);
   }
 
-  @Operation(
-      summary = "Получение датчика",
-      description = "Получение датчика по его id")
+  @Operation(summary = "Получение датчика", description = "Получение датчика по его id")
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/{id}")
   public SensorsDto getSensorById(@PathVariable Long id) {
     return sensorService.getSensorById(id);
   }
 
-  @Operation(
-      summary = "Удаление датчика",
-      description = "Удаление датчика по его id")
+  @Operation(summary = "Удаление датчика", description = "Удаление датчика по его id")
   @CrossOrigin(origins = "http://localhost:4200")
   @DeleteMapping("/{id}")
   public void deleteSensorById(@PathVariable Long id) {
