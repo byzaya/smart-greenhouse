@@ -22,7 +22,7 @@ public class LogoutController {
   private final LogoutService logoutService;
 
   @Operation(summary = "Выход из аккаунта", description = "Выход из аккаунта пользователя")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @PostMapping
   public ResponseEntity<String> logout(
       HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

@@ -25,21 +25,21 @@ public class SensorController {
   @Operation(
       summary = "Добавление датчика",
       description = "Добавление нового датчика в бд пользователем")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @PostMapping("/add")
   public SensorsDto createSensor(@RequestBody SensorsDto sensorDto) {
     return sensorService.createSensor(sensorDto);
   }
 
   @Operation(summary = "Получение датчика", description = "Получение датчика по его id")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/{id}")
   public SensorsDto getSensorById(@PathVariable Long id) {
     return sensorService.getSensorById(id);
   }
 
   @Operation(summary = "Удаление датчика", description = "Удаление датчика по его id")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @DeleteMapping("/{id}")
   public void deleteSensorById(@PathVariable Long id) {
     sensorService.deleteSensorById(id);

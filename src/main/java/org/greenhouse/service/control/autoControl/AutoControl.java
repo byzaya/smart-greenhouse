@@ -1,14 +1,25 @@
 package org.greenhouse.service.control.autoControl;
 
+import lombok.RequiredArgsConstructor;
+import org.greenhouse.repository.greenhouse.GreenhousesRepository;
+import org.greenhouse.repository.greenhouse.SeedBedsRepository;
+import org.greenhouse.service.ValidationService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AutoControl {
+
+  private final GreenhousesRepository greenhousesRepository;
+  private final SeedBedsRepository seedBedsRepository;
+  private final ValidationService validationService;
+
   // TODO сделать автоконтроль теплицы с Scheduled
 
   /*
      Тут прописана вся логика автоматического управления теплицей (включая грядки)
+     Метод должен запускаться каждые N минут (задаем данные в application properties)
      На вход должно поступать id теплицы
 
      Далее проверки:
@@ -31,6 +42,7 @@ public class AutoControl {
       - минимальный уровень влажности (minHumidity) от 0 до 100%
       - максимальный уровень влажности (maxHumidity) от 0 до 100%
 
+      Проверить данные с датчиков на валидность
   */
 
   @Scheduled

@@ -27,7 +27,7 @@ public class ConfigurationController {
       summary = "Создание конфигурации",
       description =
           "Создание новой конфигурации теплицы пользователем - параметры, которые отвечают за состояние теплицы")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @PostMapping("/add")
   public ConfigurationDto createConfiguration(@RequestBody ConfigurationDto configurationDto) {
     return configurationService.createConfiguration(configurationDto);
@@ -37,7 +37,7 @@ public class ConfigurationController {
       summary = "Обновление конфигурации",
       description =
           "Обновление конфигурации теплицы - параметры, которые отвечают за состояние теплицы")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @PutMapping("/{id}")
   public ConfigurationDto updateConfiguration(
       @PathVariable Long id, @RequestBody ConfigurationDto updatedConfigurationDto) {
@@ -47,7 +47,7 @@ public class ConfigurationController {
   @Operation(
       summary = "Вкл/выкл автоуправление",
       description = "Вкл/выкл автоуправление в конфигурации теплицы")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @PatchMapping("/{id}/auto-mode")
   public ConfigurationDto changeAutoMode(@PathVariable Long id, @RequestBody Boolean isAuto) {
     return configurationService.changeAutoMode(id, isAuto);
@@ -56,7 +56,7 @@ public class ConfigurationController {
   @Operation(
       summary = "Получение конфигурации",
       description = "Просмотр конфигурации теплицы по ее id")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/{id}")
   public ConfigurationDto getConfigurationById(@PathVariable Long id) {
     return configurationService.getConfigurationById(id);
