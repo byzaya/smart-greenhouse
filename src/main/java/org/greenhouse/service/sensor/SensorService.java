@@ -3,12 +3,8 @@ package org.greenhouse.service.sensor;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.sensor.SensorsDto;
 import org.greenhouse.entity.sensor.Sensors;
-import org.greenhouse.exception.message.GreenhouseNotFoundException;
-import org.greenhouse.exception.message.SensorNotFoundException;
-import org.greenhouse.exception.message.SensorTypeNotFoundException;
-import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.sensor.SensorsRepository;
-import org.greenhouse.repository.sensor.SensorsTypeRepository;
+import org.greenhouse.service.ValidationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SensorService {
 
   private final SensorsRepository sensorRepository;
-  private final SensorsTypeRepository sensorTypeRepository;
-  private final GreenhousesRepository greenhouseRepository;
+  private final ValidationService validationService;
 
   // TODO валидация
   // добавление датчика
@@ -27,20 +22,8 @@ public class SensorService {
     Sensors sensor = new Sensors();
     sensor.setIsActive(sensorDto.isActive());
     sensor.setSensorNumber(sensorDto.sensorNumber());
-    sensor.setSensorType(
-        sensorTypeRepository
-            .findById(sensorDto.sensorType().id())
-            .orElseThrow(
-                () ->
-                    new SensorTypeNotFoundException(
-                        "Sensor type not found with ID: " + sensorDto.sensorType().id())));
-    sensor.setGreenhouse(
-        greenhouseRepository
-            .findById(sensorDto.greenhouse().id())
-            .orElseThrow(
-                () ->
-                    new GreenhouseNotFoundException(
-                        "Greenhouse not found with ID: " + sensorDto.greenhouse().id())));
+    sensor.setSensorType(validationService.getSensorTypeThrow(sensorDto.sensorType().id()));
+    sensor.setGreenhouse(validationService.getGreenhouseOrThrow(sensorDto.greenhouse().id()));
     Sensors savedSensor = sensorRepository.save(sensor);
     return SensorsDto.fromSensors(savedSensor);
   }
@@ -48,19 +31,14 @@ public class SensorService {
   // удаление датчика
   @Transactional
   public void deleteSensorById(Long id) {
-    if (!sensorRepository.existsById(id)) {
-      throw new SensorNotFoundException("Sensor not found with ID: " + id);
-    }
-    sensorRepository.deleteById(id);
+    Sensors sensor = validationService.getSensorThrow(id);
+    sensorRepository.delete(sensor);
   }
 
   // получение информации о датчике
   @Transactional(readOnly = true)
   public SensorsDto getSensorById(Long id) {
-    Sensors sensor =
-        sensorRepository
-            .findById(id)
-            .orElseThrow(() -> new SensorNotFoundException("Sensor not found with ID: " + id));
+    Sensors sensor = validationService.getSensorThrow(id);
     return SensorsDto.fromSensors(sensor);
   }
 }

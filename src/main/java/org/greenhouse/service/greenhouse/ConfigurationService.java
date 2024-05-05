@@ -3,10 +3,8 @@ package org.greenhouse.service.greenhouse;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.greenhouse.ConfigurationDto;
 import org.greenhouse.entity.greenhouse.Configurations;
-import org.greenhouse.exception.message.ConfigurationNotFoundException;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
-import org.greenhouse.repository.greenhouse.GreenhousesRepository;
-import org.greenhouse.repository.user.UserRepository;
+import org.greenhouse.service.ValidationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ConfigurationService {
 
   private final ConfigurationsRepository configurationRepository;
-  private final GreenhousesRepository greenhousesRepository;
-  private final UserRepository userRepository;
+  private final ValidationService validationService;
 
   // создание конфигурации теплицы
   @Transactional
@@ -29,11 +26,7 @@ public class ConfigurationService {
   // изменение конфигурации теплицы
   @Transactional
   public ConfigurationDto updateConfiguration(Long id, ConfigurationDto updatedConfigurationDto) {
-    Configurations configuration =
-        configurationRepository
-            .findById(id)
-            .orElseThrow(
-                () -> new ConfigurationNotFoundException("Configuration not found with ID: " + id));
+    Configurations configuration = validationService.getConfigurationOrThrow(id);
     updateConfigurationFromDto(configuration, updatedConfigurationDto);
     return ConfigurationDto.fromConfiguration(configurationRepository.save(configuration));
   }
@@ -46,18 +39,15 @@ public class ConfigurationService {
     configuration.setMaxTemperature(configurationDto.maxTemperature());
     configuration.setMinLight(configurationDto.minLight());
     configuration.setMaxLight(configurationDto.maxLight());
-    configuration.setGreenhouse(greenhousesRepository.findById(configurationDto.greenhouses().id()).orElseThrow());
+    configuration.setGreenhouse(
+        validationService.getGreenhouseOrThrow(configurationDto.greenhouses().id()));
   }
 
   // переключение isAuto конфигурации
   // TODO добавить проверку, чтобы у одной теплицы была только одна вкл конфигурация
   @Transactional
   public ConfigurationDto changeAutoMode(Long id, Boolean isAuto) {
-    Configurations configuration =
-        configurationRepository
-            .findById(id)
-            .orElseThrow(
-                () -> new ConfigurationNotFoundException("Configuration not found with ID: " + id));
+    Configurations configuration = validationService.getConfigurationOrThrow(id);
     configuration.setIsAuto(isAuto);
     return ConfigurationDto.fromConfiguration(configurationRepository.save(configuration));
   }
@@ -65,11 +55,7 @@ public class ConfigurationService {
   // получение конфигурации по id
   @Transactional(readOnly = true)
   public ConfigurationDto getConfigurationById(Long id) {
-    Configurations configuration =
-        configurationRepository
-            .findById(id)
-            .orElseThrow(
-                () -> new ConfigurationNotFoundException("Configuration not found with ID: " + id));
+    Configurations configuration = validationService.getConfigurationOrThrow(id);
     return ConfigurationDto.fromConfiguration(configuration);
   }
 }

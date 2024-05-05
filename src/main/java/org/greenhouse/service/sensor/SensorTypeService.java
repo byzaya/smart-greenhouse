@@ -3,8 +3,8 @@ package org.greenhouse.service.sensor;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.sensor.SensorTypeDto;
 import org.greenhouse.entity.sensor.SensorType;
-import org.greenhouse.exception.message.SensorTypeNotFoundException;
 import org.greenhouse.repository.sensor.SensorsTypeRepository;
+import org.greenhouse.service.ValidationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SensorTypeService {
 
   private final SensorsTypeRepository sensorTypeRepository;
+  private final ValidationService validationService;
 
   // TODO валидация
   // добавление типа датчика
@@ -27,11 +28,7 @@ public class SensorTypeService {
   // получение типа датчика
   @Transactional(readOnly = true)
   public SensorTypeDto getSensorTypeById(Long id) {
-    SensorType sensorType =
-        sensorTypeRepository
-            .findById(id)
-            .orElseThrow(
-                () -> new SensorTypeNotFoundException("SensorType not found with ID: " + id));
+    SensorType sensorType = validationService.getSensorTypeThrow(id);
     return SensorTypeDto.fromSensorType(sensorType);
   }
 }
