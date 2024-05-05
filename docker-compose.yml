@@ -1,0 +1,21 @@
+version: '1.0'
+
+services:
+  db:
+    image: postgres:16
+    container_name: db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: greenhouse
+    ports:
+      - "5433:5432"
+
+  greenhouse:
+    image: greenhouse:latest
+    ports:
+      - 8080:8080
+    build:
+      dockerfile: Dockerfile
+    depends_on:
+      - db
