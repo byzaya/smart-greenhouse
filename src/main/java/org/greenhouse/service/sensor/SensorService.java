@@ -22,7 +22,7 @@ public class SensorService {
     Sensors sensor = new Sensors();
     sensor.setIsActive(sensorDto.isActive());
     sensor.setSensorNumber(sensorDto.sensorNumber());
-    sensor.setSensorType(validationService.getSensorTypeThrow(sensorDto.sensorType().id()));
+    sensor.setSensorType(validationService.getSensorTypeOrThrow(sensorDto.sensorType().id()));
     sensor.setGreenhouse(validationService.getGreenhouseOrThrow(sensorDto.greenhouse().id()));
     Sensors savedSensor = sensorRepository.save(sensor);
     return SensorsDto.fromSensors(savedSensor);
@@ -31,14 +31,14 @@ public class SensorService {
   // удаление датчика
   @Transactional
   public void deleteSensorById(Long id) {
-    Sensors sensor = validationService.getSensorThrow(id);
+    Sensors sensor = validationService.getSensorOrThrow(id);
     sensorRepository.delete(sensor);
   }
 
   // получение информации о датчике
   @Transactional(readOnly = true)
   public SensorsDto getSensorById(Long id) {
-    Sensors sensor = validationService.getSensorThrow(id);
+    Sensors sensor = validationService.getSensorOrThrow(id);
     return SensorsDto.fromSensors(sensor);
   }
 }

@@ -28,7 +28,7 @@ public class SensorTypeService {
   // получение типа датчика
   @Transactional(readOnly = true)
   public SensorTypeDto getSensorTypeById(Long id) {
-    SensorType sensorType = validationService.getSensorTypeThrow(id);
+    SensorType sensorType = validationService.getSensorTypeOrThrow(id);
     return SensorTypeDto.fromSensorType(sensorType);
   }
 }

@@ -2,6 +2,7 @@ package org.greenhouse.service;
 
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.entity.greenhouse.Configurations;
+import org.greenhouse.entity.greenhouse.Control;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.greenhouse.SeedBeds;
 import org.greenhouse.entity.sensor.SensorType;
@@ -10,6 +11,7 @@ import org.greenhouse.entity.user.User;
 import org.greenhouse.exception.message.ConfigurationNotFoundException;
 import org.greenhouse.exception.message.UserNotFoundException;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
+import org.greenhouse.repository.greenhouse.ControlRepository;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;
 import org.greenhouse.repository.sensor.SensorsRepository;
@@ -28,6 +30,7 @@ public class ValidationService {
   private final SeedBedsRepository seedBedsRepository;
   private final SensorsRepository sensorsRepository;
   private final SensorsTypeRepository sensorsTypeRepository;
+  private final ControlRepository controlRepository;
 
   @Transactional(readOnly = true)
   public User getUserOrThrow(Integer userId) {
@@ -67,7 +70,7 @@ public class ValidationService {
   }
 
   @Transactional(readOnly = true)
-  public Sensors getSensorThrow(Long sensorId) {
+  public Sensors getSensorOrThrow(Long sensorId) {
     return sensorsRepository
         .findById(sensorId)
         .orElseThrow(
@@ -77,12 +80,22 @@ public class ValidationService {
   }
 
   @Transactional(readOnly = true)
-  public SensorType getSensorTypeThrow(Long sensorTypeId) {
+  public SensorType getSensorTypeOrThrow(Long sensorTypeId) {
     return sensorsTypeRepository
         .findById(sensorTypeId)
         .orElseThrow(
             () ->
                 new ConfigurationNotFoundException(
                     "Sensor type not found with ID: " + sensorTypeId));
+  }
+
+  @Transactional(readOnly = true)
+  public Control getControlOrThrow(Long controlId) {
+    return controlRepository
+        .findById(controlId)
+        .orElseThrow(
+            () ->
+                new ConfigurationNotFoundException(
+                    "Control not found with ID: " + controlId));
   }
 }
