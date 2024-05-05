@@ -37,9 +37,6 @@ public class SeedBeds {
   private Boolean isAuto; // автоматический режим вкл/выкл - если вкл, то программа автоматически поддерживает все параметры
                           // если выкл - пользователь сам управляет параметрами грядки
 
-  @Column(name = "is_active", nullable = false)
-  private Boolean isActive; // активна ли эта конфигурация
-
   @Column(name = "watering_duration", nullable = false)
   private Integer wateringDuration; // длительность полива
 

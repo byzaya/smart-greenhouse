@@ -1,4 +1,4 @@
-package org.greenhouse.service.autocontrol;
+package org.greenhouse.service.control;
 
 import org.springframework.stereotype.Service;
 
