@@ -1,3 +1,4 @@
+-- TODO переделать все таблицы
 -- Создание таблицы пользователи
 CREATE TABLE IF NOT EXISTS users
 (

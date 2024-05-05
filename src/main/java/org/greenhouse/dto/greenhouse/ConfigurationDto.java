@@ -1,7 +1,6 @@
 package org.greenhouse.dto.greenhouse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.greenhouse.dto.user.UserDto;
 import org.greenhouse.entity.greenhouse.Configurations;
 
 public record ConfigurationDto(
@@ -12,7 +11,7 @@ public record ConfigurationDto(
     @JsonProperty("maxTemperature") Integer maxTemperature,
     @JsonProperty("minLight") Integer minLight,
     @JsonProperty("maxLight") Integer maxLight,
-    @JsonProperty("user") UserDto user) {
+    @JsonProperty("greenhouse") GreenhouseDto greenhouses) {
   public static ConfigurationDto fromConfiguration(Configurations configuration) {
     return new ConfigurationDto(
         configuration.getId(),
@@ -22,6 +21,6 @@ public record ConfigurationDto(
         configuration.getMaxTemperature(),
         configuration.getMinLight(),
         configuration.getMaxLight(),
-        UserDto.fromUser(configuration.getUser()));
+        GreenhouseDto.fromGreenhouse(configuration.getGreenhouse()));
   }
 }

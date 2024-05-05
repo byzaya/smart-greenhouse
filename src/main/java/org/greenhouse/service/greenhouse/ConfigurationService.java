@@ -5,6 +5,7 @@ import org.greenhouse.dto.greenhouse.ConfigurationDto;
 import org.greenhouse.entity.greenhouse.Configurations;
 import org.greenhouse.exception.message.ConfigurationNotFoundException;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
+import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ConfigurationService {
 
   private final ConfigurationsRepository configurationRepository;
+  private final GreenhousesRepository greenhousesRepository;
   private final UserRepository userRepository;
 
   // создание конфигурации теплицы
@@ -44,7 +46,7 @@ public class ConfigurationService {
     configuration.setMaxTemperature(configurationDto.maxTemperature());
     configuration.setMinLight(configurationDto.minLight());
     configuration.setMaxLight(configurationDto.maxLight());
-    configuration.setUser(userRepository.findById(configurationDto.user().id()).orElseThrow());
+    configuration.setGreenhouse(greenhousesRepository.findById(configurationDto.greenhouses().id()).orElseThrow());
   }
 
   // переключение isAuto конфигурации

@@ -57,4 +57,7 @@ public class SeedBeds {
 
   @OneToMany(mappedBy = "seedBed", cascade = CascadeType.ALL)
   private List<Humidity> humidity = new ArrayList<>();
+
+  @OneToMany(mappedBy = "seedBed", cascade = CascadeType.ALL)
+  private List<ControlSeedBed> controlSeedBed = new ArrayList<>();
 }

@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.greenhouse.GreenhouseDto;
-import org.greenhouse.entity.greenhouse.Configurations;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.user.User;
-import org.greenhouse.exception.message.ConfigurationNotFoundException;
 import org.greenhouse.exception.message.GreenhouseNotFoundException;
 import org.greenhouse.exception.message.UserNotFoundException;
-import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class GreenhouseService {
   private final GreenhousesRepository greenhousesRepository;
   private final UserRepository userRepository;
-  private final ConfigurationsRepository configurationRepository;
 
   // TODO валидация
   // добавление теплицы
@@ -38,14 +34,6 @@ public class GreenhouseService {
                     new UserNotFoundException(
                         "User not found with ID: " + greenhouseDto.user().id()));
     greenhouse.setUser(user);
-    Configurations configurations =
-        configurationRepository
-            .findById(greenhouseDto.configuration().id())
-            .orElseThrow(
-                () ->
-                    new ConfigurationNotFoundException(
-                        "Configuration not found with ID: " + greenhouseDto.configuration().id()));
-    greenhouse.setConfiguration(configurations);
     Greenhouses savedGreenhouse = greenhousesRepository.save(greenhouse);
     return GreenhouseDto.fromGreenhouse(savedGreenhouse);
   }

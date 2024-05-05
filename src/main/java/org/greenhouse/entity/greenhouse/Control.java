@@ -27,9 +27,6 @@ public class Control {
   @Column(name = "window_status", nullable = false)
   private Integer windowStatus; // статус открытости окна (закрыто/открыто наполовину/открыто) (0/1/2)
 
-  @Column(name = "watering_enabled", nullable = false)
-  private Boolean wateringEnabled; // вкл/выкл полив
-
   @Column(name = "light_enabled", nullable = false)
   private Boolean lightEnabled; // вкл/выкл свет
 

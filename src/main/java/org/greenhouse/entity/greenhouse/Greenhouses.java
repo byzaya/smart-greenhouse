@@ -42,9 +42,8 @@ public class Greenhouses {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @ManyToOne
-  @JoinColumn(name = "configuration_id", nullable = false)
-  private Configurations configuration;
+  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
+  private List<Configurations> configurations = new ArrayList<>();
 
   @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
   private List<Light> light = new ArrayList<>();
