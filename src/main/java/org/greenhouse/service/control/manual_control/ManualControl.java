@@ -12,8 +12,6 @@ import org.greenhouse.exception.message.control_message.HeaterAlreadyOffExceptio
 import org.greenhouse.exception.message.control_message.HeaterAlreadyOnException;
 import org.greenhouse.exception.message.control_message.WateringAlreadyOnException;
 import org.greenhouse.exception.message.control_message.WindowAlreadyHalfOpenException;
-import org.greenhouse.repository.greenhouse.ControlRepository;
-import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.service.ValidationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ManualControl {
 
-  private final GreenhousesRepository greenhousesRepository;
-  private final ControlRepository controlRepository;
   private final ValidationService validationService;
 
   // тут нужно записать в mqtt команду, записать в логах бд и записать в control бд
-  // проверить что не включен автоконтроль
 
   // включить вентилятор в теплице
   @Transactional
@@ -97,7 +92,8 @@ public class ManualControl {
     validationService.isNotAutoGreenhouseOrThrow(conf.getId());
     Control control = greenhouses.getControl();
     if (control.getWindowStatus() == 1) {
-      throw new WindowAlreadyHalfOpenException("Window is already half open, maybe you need to full open or close it?");
+      throw new WindowAlreadyHalfOpenException(
+          "Window is already half open, maybe you need to full open or close it?");
     }
     // TODO записать в MQTT
     // TODO сделать запись об открытии окна наполовину в бд
@@ -112,7 +108,8 @@ public class ManualControl {
     validationService.isNotAutoGreenhouseOrThrow(conf.getId());
     Control control = greenhouses.getControl();
     if (control.getWindowStatus() == 2) {
-      throw new WindowAlreadyHalfOpenException("Window is already full open, maybe you need to half open or close it?");
+      throw new WindowAlreadyHalfOpenException(
+          "Window is already full open, maybe you need to half open or close it?");
     }
     // TODO записать в MQTT
     // TODO сделать запись об открытии окна полностью в бд
@@ -127,7 +124,8 @@ public class ManualControl {
     validationService.isNotAutoGreenhouseOrThrow(conf.getId());
     Control control = greenhouses.getControl();
     if (control.getWindowStatus() == 0) {
-      throw new WindowAlreadyHalfOpenException("Window is already close, maybe you need to half open or full open it?");
+      throw new WindowAlreadyHalfOpenException(
+          "Window is already close, maybe you need to half open or full open it?");
     }
     // TODO записать в MQTT
     // TODO сделать запись об закрытии окна полностью в бд
@@ -169,7 +167,8 @@ public class ManualControl {
   public void wateringOn(Long seedBedId) {
     SeedBeds seedBed = validationService.getSeedBedOrThrow(seedBedId);
     if (seedBed.getIsAuto()) {
-      throw new IsAutoTrueException("Seed bed configuration is auto, turn it off before on/off watering");
+      throw new IsAutoTrueException(
+          "Seed bed configuration is auto, turn it off before on/off watering");
     }
     if (seedBed.getWateringEnabled()) {
       throw new WateringAlreadyOnException("Watering is already on, maybe you need to off?");
@@ -184,7 +183,8 @@ public class ManualControl {
   public void wateringOff(Long seedBedId) {
     SeedBeds seedBed = validationService.getSeedBedOrThrow(seedBedId);
     if (seedBed.getIsAuto()) {
-      throw new IsAutoTrueException("Seed bed configuration is auto, turn it off before on/off watering");
+      throw new IsAutoTrueException(
+          "Seed bed configuration is auto, turn it off before on/off watering");
     }
     if (!seedBed.getWateringEnabled()) {
       throw new WateringAlreadyOnException("Watering is already off, maybe you need to on?");
@@ -193,5 +193,4 @@ public class ManualControl {
     // TODO сделать запись о выкл полив в бд
     seedBed.setWateringEnabled(false);
   }
-
 }
