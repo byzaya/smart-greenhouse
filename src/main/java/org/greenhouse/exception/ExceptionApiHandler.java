@@ -1,5 +1,16 @@
 package org.greenhouse.exception;
 
+import org.greenhouse.exception.message.control_message.FanAlreadyOffException;
+import org.greenhouse.exception.message.control_message.FanAlreadyOnException;
+import org.greenhouse.exception.message.control_message.HeaterAlreadyOffException;
+import org.greenhouse.exception.message.control_message.HeaterAlreadyOnException;
+import org.greenhouse.exception.message.control_message.LightAlreadyOffException;
+import org.greenhouse.exception.message.control_message.LightAlreadyOnException;
+import org.greenhouse.exception.message.control_message.WateringAlreadyOffException;
+import org.greenhouse.exception.message.control_message.WateringAlreadyOnException;
+import org.greenhouse.exception.message.control_message.WindowAlreadyCloseException;
+import org.greenhouse.exception.message.control_message.WindowAlreadyFullOpenException;
+import org.greenhouse.exception.message.control_message.WindowAlreadyHalfOpenException;
 import org.greenhouse.exception.message.not_found_message.ConfigurationNotFoundException;
 import org.greenhouse.exception.message.not_found_message.ControlNotFoundException;
 import org.greenhouse.exception.message.not_found_message.GreenhouseNotFoundException;
@@ -96,81 +107,81 @@ public class ExceptionApiHandler {
   }
 
   // ошибки инфо об устройствах
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
-//
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IsAutoTrueException.class)
-//  public CustomErrorMessage isAutoTrueException(IsAutoTrueException e) {
-//    return new CustomErrorMessage(
-//        "Auto configuration is enabled, turn it off to use manual control", e.getMessage());
-//  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(FanAlreadyOffException.class)
+  public CustomErrorMessage fanAlreadyOffException(FanAlreadyOffException e) {
+    return new CustomErrorMessage(
+        "Fan is already off", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(FanAlreadyOnException.class)
+  public CustomErrorMessage fanAlreadyOnException(FanAlreadyOnException e) {
+    return new CustomErrorMessage(
+        "Fan is already on", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(HeaterAlreadyOffException.class)
+  public CustomErrorMessage heaterAlreadyOffException(HeaterAlreadyOffException e) {
+    return new CustomErrorMessage(
+        "Heater is already off", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(HeaterAlreadyOnException.class)
+  public CustomErrorMessage heaterAlreadyOnException(HeaterAlreadyOnException e) {
+    return new CustomErrorMessage(
+        "Heater is already on", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(LightAlreadyOffException.class)
+  public CustomErrorMessage lightAlreadyOffException(LightAlreadyOffException e) {
+    return new CustomErrorMessage(
+        "Light is already off", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(LightAlreadyOnException.class)
+  public CustomErrorMessage lightAlreadyOnException(LightAlreadyOnException e) {
+    return new CustomErrorMessage(
+        "Light is already on", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(WateringAlreadyOffException.class)
+  public CustomErrorMessage wateringAlreadyOffException(WateringAlreadyOffException e) {
+    return new CustomErrorMessage(
+        "Watering is already off", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(WateringAlreadyOnException.class)
+  public CustomErrorMessage wateringAlreadyOnException(WateringAlreadyOnException e) {
+    return new CustomErrorMessage(
+        "Watering is already on", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(WindowAlreadyCloseException.class)
+  public CustomErrorMessage windowAlreadyCloseException(WindowAlreadyCloseException e) {
+    return new CustomErrorMessage(
+        "Window is already close", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(WindowAlreadyFullOpenException.class)
+  public CustomErrorMessage windowAlreadyFullOpenException(WindowAlreadyFullOpenException e) {
+    return new CustomErrorMessage(
+        "Window is already full open", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(WindowAlreadyHalfOpenException.class)
+  public CustomErrorMessage windowAlreadyHalfOpenException(WindowAlreadyHalfOpenException e) {
+    return new CustomErrorMessage(
+        "Window is already half open", e.getMessage());
+  }
 }
