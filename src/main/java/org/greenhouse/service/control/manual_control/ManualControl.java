@@ -35,7 +35,7 @@ public class ManualControl {
       throw new FanAlreadyOnException("Fan is already on, maybe you need to off?");
     }
     // TODO записать в MQTT
-    // TODO сделать запись о вкл фена в бд
+    // TODO сделать запись о вкл вентилятора в бд
     greenhouses.getControl().setFanEnabled(true);
   }
 
@@ -50,7 +50,7 @@ public class ManualControl {
       throw new FanAlreadyOffException("Fan is already off, maybe you need to on?");
     }
     // TODO записать в MQTT
-    // TODO сделать запись о выкл фена в бд
+    // TODO сделать запись о выкл вентилятора в бд
     greenhouses.getControl().setFanEnabled(false);
   }
 

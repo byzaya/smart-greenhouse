@@ -1,8 +1,12 @@
 package org.greenhouse.service.sensor;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.sensor.SensorsDto;
+import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.sensor.Sensors;
+import org.greenhouse.entity.user.User;
 import org.greenhouse.repository.sensor.SensorsRepository;
 import org.greenhouse.service.ValidationService;
 import org.springframework.stereotype.Service;
@@ -40,5 +44,25 @@ public class SensorService {
   public SensorsDto getSensorById(Long id) {
     Sensors sensor = validationService.getSensorOrThrow(id);
     return SensorsDto.fromSensors(sensor);
+  }
+
+  // получение списка всех работающих датчиков теплицы
+  public List<SensorsDto> getActiveSensorsByGreenhouseId(Long greenhouseId) {
+    Greenhouses greenhouses = validationService.getGreenhouseOrThrow(greenhouseId);
+    List<Sensors> autoSensors = greenhouses.getSensors().stream().filter(Sensors::getIsActive)
+        .toList();
+    return autoSensors.stream()
+        .map(SensorsDto::fromSensors)
+        .collect(Collectors.toList());
+  }
+
+  // получение списка всех не работающих датчиков теплицы
+  public List<SensorsDto> getNotActiveSensorsByGreenhouseId(Long greenhouseId) {
+    Greenhouses greenhouses = validationService.getGreenhouseOrThrow(greenhouseId);
+    List<Sensors> inactiveSensors = greenhouses.getSensors().stream().filter(sensor -> !sensor.getIsActive())
+        .toList();
+    return inactiveSensors.stream()
+        .map(SensorsDto::fromSensors)
+        .collect(Collectors.toList());
   }
 }

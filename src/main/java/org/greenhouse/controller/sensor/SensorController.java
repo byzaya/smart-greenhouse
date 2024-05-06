@@ -2,6 +2,7 @@ package org.greenhouse.controller.sensor;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.sensor.SensorsDto;
 import org.greenhouse.service.sensor.SensorService;
@@ -43,5 +44,23 @@ public class SensorController {
   @DeleteMapping("/{id}")
   public void deleteSensorById(@PathVariable Long id) {
     sensorService.deleteSensorById(id);
+  }
+
+  @Operation(
+      summary = "Получение списка активных датчиков",
+      description = "Получение списка активных датчиков по id теплицы")
+  @CrossOrigin(origins = "${cors-address}")
+  @GetMapping("/{id}/active")
+  public List<SensorsDto> getActiveSensorsByGreenhouseId(@PathVariable Long id) {
+    return sensorService.getActiveSensorsByGreenhouseId(id);
+  }
+
+  @Operation(
+      summary = "Получение списка неактивных датчиков",
+      description = "Получение списка неактивных датчиков по id теплицы")
+  @CrossOrigin(origins = "${cors-address}")
+  @GetMapping("/{id}/inactive")
+  public List<SensorsDto> getNotActiveSensorsByGreenhouseId(@PathVariable Long id) {
+    return sensorService.getNotActiveSensorsByGreenhouseId(id);
   }
 }
