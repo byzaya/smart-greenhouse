@@ -1,5 +1,6 @@
 package org.greenhouse.entity.sensor;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,12 +8,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.greenhouse.entity.greenhouse.Greenhouses;
+import org.greenhouse.entity.log.readings.Humidity;
+import org.greenhouse.entity.log.readings.Light;
+import org.greenhouse.entity.log.readings.Temperature;
 
 @Entity
 @Getter
@@ -40,4 +47,13 @@ public class Sensors {
   @ManyToOne
   @JoinColumn(name = "greenhouse_id", nullable = false)
   private Greenhouses greenhouse;
+
+  @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL)
+  private List<Humidity> humidity = new ArrayList<>();
+
+  @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL)
+  private List<Light> light = new ArrayList<>();
+
+  @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL)
+  private List<Temperature> temperature = new ArrayList<>();
 }

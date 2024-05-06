@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.greenhouse.entity.greenhouse.Greenhouses;
+import org.greenhouse.entity.sensor.Sensors;
 
 @Entity
 @Getter
@@ -21,4 +22,8 @@ public class Light extends Readings {
   @ManyToOne
   @JoinColumn(name = "greenhouse_id", nullable = false)
   private Greenhouses greenhouse;
+
+  @ManyToOne
+  @JoinColumn(name = "sensor_id", nullable = false)
+  private Sensors sensor;
 }

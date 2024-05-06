@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.greenhouse.entity.greenhouse.SeedBeds;
+import org.greenhouse.entity.sensor.Sensors;
 
 @Entity
 @Getter
@@ -21,4 +22,8 @@ public class Humidity extends Readings {
   @ManyToOne
   @JoinColumn(name = "seedbed_id", nullable = false)
   private SeedBeds seedBed;
+
+  @ManyToOne
+  @JoinColumn(name = "sensor_id", nullable = false)
+  private Sensors sensor;
 }
