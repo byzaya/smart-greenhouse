@@ -21,6 +21,7 @@ import org.greenhouse.exception.message.PasswordNotSameException;
 import org.greenhouse.exception.message.not_found_message.SeedBedNotFoundException;
 import org.greenhouse.exception.message.not_found_message.SensorNotFoundException;
 import org.greenhouse.exception.message.not_found_message.SensorTypeNotFoundException;
+import org.greenhouse.exception.message.not_found_message.TopicNotFoundException;
 import org.greenhouse.exception.message.not_found_message.UserNotFoundException;
 import org.greenhouse.exception.message.WrongPasswordException;
 import org.springframework.http.HttpStatus;
@@ -84,6 +85,12 @@ public class ExceptionApiHandler {
   @ExceptionHandler(UserNotFoundException.class)
   public CustomErrorMessage userNotFoundException(UserNotFoundException e) {
     return new CustomErrorMessage("User is not found by id", e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(TopicNotFoundException.class)
+  public CustomErrorMessage topicNotFoundException(TopicNotFoundException e) {
+    return new CustomErrorMessage("Topic is not found by id", e.getMessage());
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)

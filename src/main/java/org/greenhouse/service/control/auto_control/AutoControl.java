@@ -1,6 +1,7 @@
 package org.greenhouse.service.control.auto_control;
 
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;
 import org.greenhouse.service.ValidationService;
@@ -47,5 +48,12 @@ public class AutoControl {
   */
 
   @Scheduled
-  public void controlAll(Long greenhouseId) {}
+  public void controlAll(Long greenhouseId) {
+    Greenhouses greenhouse = validationService.getGreenhouseOrThrow(greenhouseId);
+    if (greenhouse.getConfiguration().getIsAuto()) {
+
+    } else { // тут нужно проверить также все грядки на isAuto
+      return;
+    }
+  }
 }
