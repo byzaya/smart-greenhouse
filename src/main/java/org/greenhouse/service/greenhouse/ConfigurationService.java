@@ -59,4 +59,6 @@ public class ConfigurationService {
     Configurations configuration = validationService.getConfigurationOrThrow(id);
     return ConfigurationDto.fromConfiguration(configuration);
   }
+
+  // TODO получение конфига по id теплицы
 }

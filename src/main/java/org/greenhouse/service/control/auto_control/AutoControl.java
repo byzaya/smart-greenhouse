@@ -5,6 +5,7 @@ import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;
 import org.greenhouse.service.ValidationService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,14 @@ public class AutoControl {
   private final SeedBedsRepository seedBedsRepository;
   private final ValidationService validationService;
 
+  @Value("${scheduled-duration}")
+  private final Integer scheduledDuration = 1800000;
+
   // TODO сделать автоконтроль теплицы с Scheduled
 
   /*
      Тут прописана вся логика автоматического управления теплицей (включая грядки)
-     Метод должен запускаться каждые N минут (задаем данные в application properties)
+     Метод должен запускаться каждые N минут (10 мин) - T => 20-30 мин (задаем данные в application properties)
      На вход должно поступать id теплицы
 
      Далее проверки:
@@ -66,7 +70,7 @@ public class AutoControl {
 
   */
 
-  @Scheduled
+  @Scheduled(fixedDelay = scheduledDuration)
   public void controlAll(Long greenhouseId) {
     Greenhouses greenhouse = validationService.getGreenhouseOrThrow(greenhouseId);
     if (greenhouse.getConfiguration().getIsAuto()) {
