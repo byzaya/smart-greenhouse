@@ -1,22 +1,20 @@
-package org.greenhouse.dto.greenhouse;
+package org.greenhouse.dto.input.greenhouse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.greenhouse.entity.greenhouse.Control;
 
-public record ControlDto(
-    @JsonProperty("id") Long id,
+public record ControlInputDto(
     @JsonProperty("windowStatus") Integer windowStatus,
     @JsonProperty("lightEnabled") Boolean lightEnabled,
     @JsonProperty("fanEnabled") Boolean fanEnabled,
     @JsonProperty("heaterEnabled") Boolean heaterEnabled,
-    @JsonProperty("greenhouse") GreenhouseDto greenhouse) {
-  public static ControlDto fromControl(Control control) {
-    return new ControlDto(
-        control.getId(),
+    @JsonProperty("greenhouseId") Long greenhouseId) {
+  public static ControlInputDto fromControl(Control control) {
+    return new ControlInputDto(
         control.getWindowStatus(),
         control.getLightEnabled(),
         control.getFanEnabled(),
         control.getHeaterEnabled(),
-        GreenhouseDto.fromGreenhouse(control.getGreenhouse()));
+        control.getGreenhouse().getId());
   }
 }

@@ -1,7 +1,7 @@
-package org.greenhouse.dto.sensor;
+package org.greenhouse.dto.output.sensor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.greenhouse.dto.greenhouse.GreenhouseDto;
+import org.greenhouse.dto.output.greenhouse.GreenhouseDto;
 import org.greenhouse.entity.sensor.Sensors;
 
 public record SensorsDto(

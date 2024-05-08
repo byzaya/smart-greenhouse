@@ -1,7 +1,7 @@
 package org.greenhouse.service.greenhouse;
 
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.greenhouse.ControlDto;
+import org.greenhouse.dto.output.greenhouse.ControlDto;
 import org.greenhouse.entity.greenhouse.Control;
 import org.greenhouse.service.ValidationService;
 import org.springframework.stereotype.Service;

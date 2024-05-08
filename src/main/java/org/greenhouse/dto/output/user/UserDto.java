@@ -1,4 +1,4 @@
-package org.greenhouse.dto.user;
+package org.greenhouse.dto.output.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.greenhouse.entity.user.User;

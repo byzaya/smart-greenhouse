@@ -1,7 +1,7 @@
 package org.greenhouse.service.greenhouse;
 
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.greenhouse.ConfigurationDto;
+import org.greenhouse.dto.output.greenhouse.ConfigurationDto;
 import org.greenhouse.entity.greenhouse.Configurations;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
 import org.greenhouse.service.ValidationService;

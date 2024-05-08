@@ -3,7 +3,7 @@ package org.greenhouse.service.user;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.auth.ChangePasswordRequest;
-import org.greenhouse.dto.user.UserDto;
+import org.greenhouse.dto.output.user.UserDto;
 import org.greenhouse.entity.user.User;
 import org.greenhouse.exception.message.PasswordNotSameException;
 import org.greenhouse.exception.message.WrongPasswordException;

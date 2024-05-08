@@ -1,4 +1,4 @@
-package org.greenhouse.dto.log;
+package org.greenhouse.dto.output.log;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;

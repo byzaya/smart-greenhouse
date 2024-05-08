@@ -1,7 +1,7 @@
 package org.greenhouse.service.sensor;
 
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.sensor.SensorTypeDto;
+import org.greenhouse.dto.output.sensor.SensorTypeDto;
 import org.greenhouse.entity.sensor.SensorType;
 import org.greenhouse.repository.sensor.SensorsTypeRepository;
 import org.greenhouse.service.ValidationService;

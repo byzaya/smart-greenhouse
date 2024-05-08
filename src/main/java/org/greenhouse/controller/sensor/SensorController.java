@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.sensor.SensorsDto;
+import org.greenhouse.dto.output.sensor.SensorsDto;
 import org.greenhouse.service.sensor.SensorService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;

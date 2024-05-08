@@ -1,7 +1,7 @@
 package org.greenhouse.service.control;
 
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.log.SendLogDto;
+import org.greenhouse.dto.output.log.SendLogDto;
 import org.greenhouse.repository.log.ReceiveLogsRepository;
 import org.greenhouse.repository.log.SendLogsRepository;
 import org.springframework.stereotype.Service;

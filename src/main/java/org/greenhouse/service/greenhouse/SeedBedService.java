@@ -2,7 +2,7 @@ package org.greenhouse.service.greenhouse;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.greenhouse.SeedBedDto;
+import org.greenhouse.dto.output.greenhouse.SeedBedDto;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.greenhouse.SeedBeds;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;

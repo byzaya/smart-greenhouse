@@ -1,11 +1,11 @@
-package org.greenhouse.dto.greenhouse;
+package org.greenhouse.dto.output.greenhouse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import org.greenhouse.dto.log.readings.LightDto;
-import org.greenhouse.dto.log.readings.TemperatureDto;
-import org.greenhouse.dto.sensor.SensorsDto;
-import org.greenhouse.dto.user.UserDto;
+import org.greenhouse.dto.output.log.readings.LightDto;
+import org.greenhouse.dto.output.log.readings.TemperatureDto;
+import org.greenhouse.dto.output.sensor.SensorsDto;
+import org.greenhouse.dto.output.user.UserDto;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 
 public record GreenhouseDto(

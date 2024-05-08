@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.auth.ChangePasswordRequest;
-import org.greenhouse.dto.user.UserDto;
+import org.greenhouse.dto.output.user.UserDto;
 import org.greenhouse.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

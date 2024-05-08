@@ -3,7 +3,7 @@ package org.greenhouse.controller.sensor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.sensor.SensorTypeDto;
+import org.greenhouse.dto.output.sensor.SensorTypeDto;
 import org.greenhouse.service.sensor.SensorTypeService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

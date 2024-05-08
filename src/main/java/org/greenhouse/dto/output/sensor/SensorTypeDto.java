@@ -1,4 +1,4 @@
-package org.greenhouse.dto.sensor;
+package org.greenhouse.dto.output.sensor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;

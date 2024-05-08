@@ -1,8 +1,8 @@
-package org.greenhouse.dto.greenhouse;
+package org.greenhouse.dto.output.greenhouse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import org.greenhouse.dto.log.readings.HumidityDto;
+import org.greenhouse.dto.output.log.readings.HumidityDto;
 import org.greenhouse.entity.greenhouse.SeedBeds;
 
 public record SeedBedDto(

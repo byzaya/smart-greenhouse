@@ -3,7 +3,7 @@ package org.greenhouse.service.greenhouse;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.greenhouse.GreenhouseDto;
+import org.greenhouse.dto.output.greenhouse.GreenhouseDto;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.user.User;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;

@@ -3,7 +3,7 @@ package org.greenhouse.controller.greenhouse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.greenhouse.dto.greenhouse.ControlDto;
+import org.greenhouse.dto.output.greenhouse.ControlDto;
 import org.greenhouse.service.greenhouse.ControlService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

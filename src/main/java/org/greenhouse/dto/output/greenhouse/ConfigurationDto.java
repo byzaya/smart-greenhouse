@@ -1,4 +1,4 @@
-package org.greenhouse.dto.greenhouse;
+package org.greenhouse.dto.output.greenhouse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.greenhouse.entity.greenhouse.Configurations;
