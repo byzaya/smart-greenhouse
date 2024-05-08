@@ -1,158 +1,150 @@
--- TODO переделать все таблицы
--- Создание таблицы пользователи
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE sensor_type
 (
-    id SERIAL PRIMARY KEY,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(50) NOT NULL UNIQUE
-);
-
--- Создание таблицы токены
-CREATE TABLE IF NOT EXISTS tokens
-(
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    token VARCHAR(255) NOT NULL,
-    tokenType VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    expires_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- Создание таблицы конфигурации теплицы
-CREATE TABLE IF NOT EXISTS configurations
-(
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    is_active BOOLEAN NOT NULL,
-    is_auto BOOLEAN NOT NULL,
-    min_temperature INT NOT NULL,
-    max_temperature INT NOT NULL,
-    min_light INT NOT NULL,
-    max_light INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- Создание таблицы теплицы
-CREATE TABLE IF NOT EXISTS greenhouses
-(
-    id SERIAL PRIMARY KEY,
-    location VARCHAR(255) NOT NULL,
-    greenhouse_name VARCHAR(50) NOT NULL,
-    user_id INT NOT NULL,
-    configuration_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (configuration_id) REFERENCES configurations(id)
-);
-
--- Создание таблицы грядки
-CREATE TABLE IF NOT EXISTS seedbeds
-(
-    id SERIAL PRIMARY KEY,
-    seedbed_name VARCHAR(50) NOT NULL,
-    greenhouse_id INT NOT NULL,
-    is_auto BOOLEAN NOT NULL,
-    is_active BOOLEAN NOT NULL,
-    watering_duration INT NOT NULL,
-    watering_frequency INT NOT NULL,
-    min_humidity INT NOT NULL,
-    max_humidity INT NOT NULL,
-    FOREIGN KEY (greenhouse_id) REFERENCES greenhouses(id)
-);
-
--- Создание таблицы контроль за статусом доп факторов
-CREATE TABLE IF NOT EXISTS control
-(
-    id SERIAL PRIMARY KEY,
-    greenhouse_id INT NOT NULL,
-    window_status INT NOT NULL,
-    watering_enabled BOOLEAN NOT NULL,
-    light_enabled BOOLEAN NOT NULL,
-    fan_enabled BOOLEAN NOT NULL,
-    heater_enabled BOOLEAN NOT NULL,
-    FOREIGN KEY (greenhouse_id) REFERENCES greenhouses(id)
-);
-
--- Создание таблицы типы датчиков(влажности, освещенности, температуры)
-CREATE TABLE IF NOT EXISTS sensor_types
-(
-    id SERIAL PRIMARY KEY,
+    id          BIGINT      NOT NULL PRIMARY KEY,
     sensor_name VARCHAR(50) NOT NULL
 );
 
--- Создание таблицы датчики
-CREATE TABLE IF NOT EXISTS sensors
+CREATE TABLE topics
 (
-    id SERIAL PRIMARY KEY,
-    sensor_number INT NOT NULL,
-    sensor_type_id INT NOT NULL,
-    greenhouse_id INT NOT NULL,
-    is_active BOOLEAN NOT NULL,
-    FOREIGN KEY (greenhouse_id) REFERENCES greenhouses(id),
-    FOREIGN KEY (sensor_type_id) REFERENCES sensor_types(id)
+    id         BIGINT      NOT NULL PRIMARY KEY,
+    topic_name VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Создание таблицы темы логов
-CREATE TABLE IF NOT EXISTS topics
+CREATE TABLE receive_logs
 (
-    id SERIAL PRIMARY KEY,
-    topic_name VARCHAR(50) NOT NULL
+    validity     BOOLEAN      NOT NULL,
+    id           BIGINT       NOT NULL PRIMARY KEY,
+    receive_time TIMESTAMP(6) NOT NULL,
+    topic_id     BIGINT       NOT NULL,
+    message      VARCHAR(255) NOT NULL,
+    CONSTRAINT fkoi3vjyxlo32yxw85h67ju5r05 FOREIGN KEY (topic_id) REFERENCES topics (id)
 );
 
--- Создание таблицы отправленные логи (команды, которые необходимо сделать)
-CREATE TABLE IF NOT EXISTS send_logs
+CREATE TABLE send_logs
 (
-    id SERIAL PRIMARY KEY,
-    topic_id INT NOT NULL,
-    reply BOOLEAN NOT NULL,
-    command INT NOT NULL,
-    send_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (topic_id) REFERENCES topics(id)
+    command   INTEGER      NOT NULL,
+    reply     BOOLEAN      NOT NULL,
+    id        BIGINT       NOT NULL PRIMARY KEY,
+    send_time TIMESTAMP(6) NOT NULL,
+    topic_id  BIGINT       NOT NULL,
+    CONSTRAINT fkerxe1yxejdm5lbe2bwb9x37b5 FOREIGN KEY (topic_id) REFERENCES topics (id)
 );
 
--- Создание таблицы принятые логи (показатели с датчиков)
-CREATE TABLE IF NOT EXISTS receive_logs
+CREATE TABLE users
 (
-    id SERIAL PRIMARY KEY,
-    topic_id INT NOT NULL,
-    message VARCHAR(255) NOT NULL,
-    validity BOOLEAN NOT NULL,
-    receive_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (topic_id) REFERENCES topics(id)
+    id       INTEGER      NOT NULL PRIMARY KEY,
+    email    VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role     VARCHAR(255) NOT NULL,
+    CONSTRAINT users_role_check CHECK ((role)::text = ANY
+                                       ((ARRAY ['USER'::CHARACTER VARYING, 'ADMIN'::CHARACTER VARYING, 'MANAGER'::CHARACTER VARYING])::text[]))
 );
 
--- Создание таблицы уровень влажности
-CREATE TABLE IF NOT EXISTS humidity
+CREATE TABLE greenhouse
 (
-    id SERIAL PRIMARY KEY,
-    receive_log_id INT NOT NULL,
-    seedbed_id INT NOT NULL,
-    value INT NOT NULL,
-    receive_time TIMESTAMP NOT NULL,
-    FOREIGN KEY (receive_log_id) REFERENCES receive_logs(id),
-    FOREIGN KEY (seedbed_id) REFERENCES seedbeds(id)
+    user_id         INTEGER      NOT NULL,
+    id              BIGINT       NOT NULL PRIMARY KEY,
+    greenhouse_name VARCHAR(50)  NOT NULL,
+    location        VARCHAR(255) NOT NULL,
+    CONSTRAINT fk5t6yei2vlibhbtilhijjodvwi FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
--- Создание таблицы уровень освещенности
-CREATE TABLE IF NOT EXISTS light
+CREATE TABLE configurations
 (
-    id SERIAL PRIMARY KEY,
-    receive_log_id INT NOT NULL,
-    greenhouse_id INT NOT NULL,
-    value INT NOT NULL,
-    receive_time TIMESTAMP NOT NULL,
-    FOREIGN KEY (receive_log_id) REFERENCES receive_logs(id),
-    FOREIGN KEY (greenhouse_id) REFERENCES greenhouses(id)
+    is_active       BOOLEAN NOT NULL,
+    is_auto         BOOLEAN NOT NULL,
+    max_light       INTEGER NOT NULL,
+    max_temperature INTEGER NOT NULL,
+    min_light       INTEGER NOT NULL,
+    min_temperature INTEGER NOT NULL,
+    greenhouse_id   BIGINT  NOT NULL UNIQUE,
+    id              BIGINT  NOT NULL PRIMARY KEY,
+    CONSTRAINT fk1gfx57yj6uh041wgamg1am4kq FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id)
 );
 
--- Создание таблицы уровень температуры
-CREATE TABLE IF NOT EXISTS temperature
+CREATE TABLE control
 (
-    id SERIAL PRIMARY KEY,
-    receive_log_id INT NOT NULL,
-    greenhouse_id INT NOT NULL,
-    value INT NOT NULL,
-    receive_time TIMESTAMP NOT NULL,
-    FOREIGN KEY (receive_log_id) REFERENCES receive_logs(id),
-    FOREIGN KEY (greenhouse_id) REFERENCES greenhouses(id)
+    fan_enabled    BOOLEAN NOT NULL,
+    heater_enabled BOOLEAN NOT NULL,
+    light_enabled  BOOLEAN NOT NULL,
+    window_status  INTEGER NOT NULL,
+    greenhouse_id  BIGINT  NOT NULL UNIQUE,
+    id             BIGINT  NOT NULL PRIMARY KEY,
+    CONSTRAINT fkd74h8ms8g31c1l1gx1qk3ew5a FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id)
+);
+
+CREATE TABLE seedbeds
+(
+    is_auto            BOOLEAN     NOT NULL,
+    max_humidity       INTEGER     NOT NULL,
+    min_humidity       INTEGER     NOT NULL,
+    watering_duration  INTEGER     NOT NULL,
+    watering_enabled   BOOLEAN     NOT NULL,
+    watering_frequency INTEGER     NOT NULL,
+    greenhouse_id      BIGINT      NOT NULL,
+    id                 BIGINT      NOT NULL PRIMARY KEY,
+    seedbed_name       VARCHAR(50) NOT NULL,
+    CONSTRAINT fkpyuakexhwe3m6lvkuuxah6n43 FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id)
+);
+
+CREATE TABLE sensors
+(
+    is_active      BOOLEAN NOT NULL,
+    sensor_number  INTEGER NOT NULL,
+    greenhouse_id  BIGINT  NOT NULL,
+    id             BIGINT  NOT NULL PRIMARY KEY,
+    sensor_type_id BIGINT  NOT NULL,
+    CONSTRAINT fkkujgmlito6k4tuyw5y73dp8tt FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id),
+    CONSTRAINT fk8fpn04m9aagposrvfs0aro3bj FOREIGN KEY (sensor_type_id) REFERENCES sensor_type (id)
+);
+
+CREATE TABLE humidity
+(
+    id             INTEGER      NOT NULL PRIMARY KEY,
+    value          INTEGER      NOT NULL,
+    receive_log_id BIGINT       NOT NULL,
+    receive_time   TIMESTAMP(6) NOT NULL,
+    seedbed_id     BIGINT       NOT NULL,
+    sensor_id      BIGINT       NOT NULL,
+    CONSTRAINT fk_jggwfuwy7ssweduh6jio8xsm6 FOREIGN KEY (receive_log_id) REFERENCES receive_logs (id),
+    CONSTRAINT fkhswlxxbvkbdw2upph6fr3oomr FOREIGN KEY (seedbed_id) REFERENCES seedbeds (id),
+    CONSTRAINT fkhi07a7eptdld5jbr9wrer35j5 FOREIGN KEY (sensor_id) REFERENCES sensors (id)
+);
+
+CREATE TABLE light
+(
+    id             INTEGER      NOT NULL PRIMARY KEY,
+    value          INTEGER      NOT NULL,
+    greenhouse_id  BIGINT       NOT NULL,
+    receive_log_id BIGINT       NOT NULL,
+    receive_time   TIMESTAMP(6) NOT NULL,
+    sensor_id      BIGINT       NOT NULL,
+    CONSTRAINT fkcb3ot2efo9o4xjmaondlrkvto FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id),
+    CONSTRAINT fk_ewbf2w49nl7fjxmj9cgkurj8h FOREIGN KEY (receive_log_id) REFERENCES receive_logs (id),
+    CONSTRAINT fk1h3sqa2l1w2sih7ts5hi73klx FOREIGN KEY (sensor_id) REFERENCES sensors (id)
+);
+
+CREATE TABLE temperature
+(
+    id             INTEGER      NOT NULL PRIMARY KEY,
+    value          INTEGER      NOT NULL,
+    greenhouse_id  BIGINT       NOT NULL,
+    receive_log_id BIGINT       NOT NULL,
+    receive_time   TIMESTAMP(6) NOT NULL,
+    sensor_id      BIGINT       NOT NULL,
+    CONSTRAINT fkdu4oinr23xd9pm7mrmbc0fa27 FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id),
+    CONSTRAINT fk_jducmk8rypbc8b1qn8unflr68 FOREIGN KEY (receive_log_id) REFERENCES receive_logs (id),
+    CONSTRAINT fkabbpr52o315gjtqvpd9xfbepq FOREIGN KEY (sensor_id) REFERENCES sensors (id)
+);
+
+CREATE TABLE tokens
+(
+    expired    BOOLEAN,
+    id         INTEGER NOT NULL PRIMARY KEY,
+    revoked    BOOLEAN,
+    user_id    INTEGER,
+    token      VARCHAR(255) UNIQUE,
+    token_type VARCHAR(255),
+    CONSTRAINT fk2dylsfo39lgjyqml2tbe0b0ss FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT tokens_token_type_check CHECK ((token_type)::text = 'BEARER'::text)
 );
