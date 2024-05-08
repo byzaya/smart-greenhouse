@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.greenhouse.GreenhouseInputDto;
 import org.greenhouse.dto.output.greenhouse.GreenhouseDto;
 import org.greenhouse.service.greenhouse.GreenhouseService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +27,7 @@ public class GreenhouseController {
   @Operation(summary = "Добавление теплицы", description = "Создание новой теплицы пользователем")
   @CrossOrigin(origins = "${cors-address}")
   @PostMapping("/add")
-  public GreenhouseDto createGreenhouse(@RequestBody GreenhouseDto greenhouseDto) {
+  public GreenhouseDto createGreenhouse(@RequestBody GreenhouseInputDto greenhouseDto) {
     return greenhouseService.createGreenhouse(greenhouseDto);
   }
 

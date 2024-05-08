@@ -3,6 +3,7 @@ package org.greenhouse.controller.greenhouse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.greenhouse.ConfigurationInputDto;
 import org.greenhouse.dto.output.greenhouse.ConfigurationDto;
 import org.greenhouse.service.greenhouse.ConfigurationService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,7 +30,7 @@ public class ConfigurationController {
           "Создание новой конфигурации теплицы пользователем - параметры, которые отвечают за состояние теплицы")
   @CrossOrigin(origins = "${cors-address}")
   @PostMapping("/add")
-  public ConfigurationDto createConfiguration(@RequestBody ConfigurationDto configurationDto) {
+  public ConfigurationDto createConfiguration(@RequestBody ConfigurationInputDto configurationDto) {
     return configurationService.createConfiguration(configurationDto);
   }
 
@@ -40,7 +41,7 @@ public class ConfigurationController {
   @CrossOrigin(origins = "${cors-address}")
   @PutMapping("/{id}")
   public ConfigurationDto updateConfiguration(
-      @PathVariable Long id, @RequestBody ConfigurationDto updatedConfigurationDto) {
+      @PathVariable Long id, @RequestBody ConfigurationInputDto updatedConfigurationDto) {
     return configurationService.updateConfiguration(id, updatedConfigurationDto);
   }
 

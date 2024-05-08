@@ -3,6 +3,7 @@ package org.greenhouse.service.sensor;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.sensor.SensorsInputDto;
 import org.greenhouse.dto.output.sensor.SensorsDto;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.sensor.Sensors;
@@ -21,12 +22,12 @@ public class SensorService {
   // TODO валидация
   // добавление датчика
   @Transactional
-  public SensorsDto createSensor(SensorsDto sensorDto) {
+  public SensorsDto createSensor(SensorsInputDto sensorDto) {
     Sensors sensor = new Sensors();
     sensor.setIsActive(sensorDto.isActive());
     sensor.setSensorNumber(sensorDto.sensorNumber());
-    sensor.setSensorType(validationService.getSensorTypeOrThrow(sensorDto.sensorType().id()));
-    sensor.setGreenhouse(validationService.getGreenhouseOrThrow(sensorDto.greenhouse().id()));
+    sensor.setSensorType(validationService.getSensorTypeOrThrow(sensorDto.sensorTypeId()));
+    sensor.setGreenhouse(validationService.getGreenhouseOrThrow(sensorDto.greenhouseId()));
     Sensors savedSensor = sensorRepository.save(sensor);
     return SensorsDto.fromSensors(savedSensor);
   }

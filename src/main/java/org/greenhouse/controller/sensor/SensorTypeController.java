@@ -3,6 +3,7 @@ package org.greenhouse.controller.sensor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.sensor.SensorTypeInputDto;
 import org.greenhouse.dto.output.sensor.SensorTypeDto;
 import org.greenhouse.service.sensor.SensorTypeService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +27,7 @@ public class SensorTypeController {
       description = "Добавление нового типа датчика в бд пользователем")
   @CrossOrigin(origins = "${cors-address}")
   @PostMapping("/add")
-  public SensorTypeDto createSensorType(@RequestBody SensorTypeDto sensorTypeDto) {
+  public SensorTypeDto createSensorType(@RequestBody SensorTypeInputDto sensorTypeDto) {
     return sensorTypeService.createSensorType(sensorTypeDto);
   }
 

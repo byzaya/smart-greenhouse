@@ -1,6 +1,7 @@
 package org.greenhouse.service.control;
 
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.log.SendLogInputDto;
 import org.greenhouse.dto.output.log.SendLogDto;
 import org.greenhouse.repository.log.ReceiveLogsRepository;
 import org.greenhouse.repository.log.SendLogsRepository;
@@ -14,8 +15,8 @@ public class LogService {
   private final ReceiveLogsRepository receiveLogsRepository;
   private final SendLogsRepository sendLogsRepository;
 
-  @Transactional
-  public void sendLog(SendLogDto sendLogDto) {
-
-  }
+//  @Transactional
+//  public SendLogDto sendLog(SendLogInputDto sendLogDto) {
+//
+//  }
 }

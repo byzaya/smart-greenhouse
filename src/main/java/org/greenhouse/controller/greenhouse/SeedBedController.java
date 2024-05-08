@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.greenhouse.SeedBedInputDto;
 import org.greenhouse.dto.output.greenhouse.SeedBedDto;
 import org.greenhouse.service.greenhouse.SeedBedService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,7 +30,7 @@ public class SeedBedController {
       description = "Создание новой грядки (в том числе ее конфигурации) пользователем")
   @CrossOrigin(origins = "${cors-address}")
   @PostMapping("/add")
-  public SeedBedDto createSeedBed(@RequestBody SeedBedDto seedBedDto) {
+  public SeedBedDto createSeedBed(@RequestBody SeedBedInputDto seedBedDto) {
     return seedBedService.createSeedBed(seedBedDto);
   }
 
@@ -39,7 +40,7 @@ public class SeedBedController {
   @CrossOrigin(origins = "${cors-address}")
   @PutMapping("/update/{id}")
   public SeedBedDto updateSeedBed(
-      @PathVariable Long id, @RequestBody SeedBedDto updatedSeedBedDto) {
+      @PathVariable Long id, @RequestBody SeedBedInputDto updatedSeedBedDto) {
     return seedBedService.updateSeedBed(id, updatedSeedBedDto);
   }
 

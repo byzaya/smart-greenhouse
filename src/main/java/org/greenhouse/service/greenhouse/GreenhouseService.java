@@ -3,6 +3,7 @@ package org.greenhouse.service.greenhouse;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.greenhouse.GreenhouseInputDto;
 import org.greenhouse.dto.output.greenhouse.GreenhouseDto;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.user.User;
@@ -21,11 +22,11 @@ public class GreenhouseService {
   // TODO валидация
   // добавление теплицы
   @Transactional
-  public GreenhouseDto createGreenhouse(GreenhouseDto greenhouseDto) {
+  public GreenhouseDto createGreenhouse(GreenhouseInputDto greenhouseDto) {
     Greenhouses greenhouse = new Greenhouses();
     greenhouse.setLocation(greenhouseDto.location());
     greenhouse.setGreenhouseName(greenhouseDto.greenhouseName());
-    User user = validationService.getUserOrThrow(greenhouseDto.user().id());
+    User user = validationService.getUserOrThrow(greenhouseDto.userId());
     greenhouse.setUser(user);
     Greenhouses savedGreenhouse = greenhousesRepository.save(greenhouse);
     return GreenhouseDto.fromGreenhouse(savedGreenhouse);

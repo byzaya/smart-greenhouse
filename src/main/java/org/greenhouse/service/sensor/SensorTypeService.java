@@ -1,6 +1,7 @@
 package org.greenhouse.service.sensor;
 
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.sensor.SensorTypeInputDto;
 import org.greenhouse.dto.output.sensor.SensorTypeDto;
 import org.greenhouse.entity.sensor.SensorType;
 import org.greenhouse.repository.sensor.SensorsTypeRepository;
@@ -18,7 +19,7 @@ public class SensorTypeService {
   // TODO валидация
   // добавление типа датчика
   @Transactional
-  public SensorTypeDto createSensorType(SensorTypeDto sensorTypeDto) {
+  public SensorTypeDto createSensorType(SensorTypeInputDto sensorTypeDto) {
     SensorType sensorType = new SensorType();
     sensorType.setSensorName(sensorTypeDto.sensorName());
     SensorType savedSensorType = sensorTypeRepository.save(sensorType);

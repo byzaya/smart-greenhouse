@@ -2,6 +2,7 @@ package org.greenhouse.service.greenhouse;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.greenhouse.SeedBedInputDto;
 import org.greenhouse.dto.output.greenhouse.SeedBedDto;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.greenhouse.SeedBeds;
@@ -20,7 +21,7 @@ public class SeedBedService {
   // TODO валидация
   // добавление грядки
   @Transactional
-  public SeedBedDto createSeedBed(SeedBedDto seedBedDto) {
+  public SeedBedDto createSeedBed(SeedBedInputDto seedBedDto) {
     SeedBeds seedBeds = new SeedBeds();
     updateSeedBedsFromDto(seedBeds, seedBedDto);
     return SeedBedDto.fromSeedBeds(seedBedRepository.save(seedBeds));
@@ -28,13 +29,13 @@ public class SeedBedService {
 
   // изменить конфигурацию грядки
   @Transactional
-  public SeedBedDto updateSeedBed(Long id, SeedBedDto updatedSeedBedDto) {
+  public SeedBedDto updateSeedBed(Long id, SeedBedInputDto updatedSeedBedDto) {
     SeedBeds seedBeds = validationService.getSeedBedOrThrow(id);
     updateSeedBedsFromDto(seedBeds, updatedSeedBedDto);
     return SeedBedDto.fromSeedBeds(seedBedRepository.save(seedBeds));
   }
 
-  private void updateSeedBedsFromDto(SeedBeds seedBeds, SeedBedDto seedBedDto) {
+  private void updateSeedBedsFromDto(SeedBeds seedBeds, SeedBedInputDto seedBedDto) {
     seedBeds.setSeedbedName(seedBedDto.seedbedName());
     seedBeds.setIsAuto(seedBedDto.isAuto());
     seedBeds.setWateringEnabled(seedBedDto.wateringEnabled());
@@ -42,7 +43,7 @@ public class SeedBedService {
     seedBeds.setWateringFrequency(seedBedDto.wateringFrequency());
     seedBeds.setMinHumidity(seedBedDto.minHumidity());
     seedBeds.setMaxHumidity(seedBedDto.maxHumidity());
-    seedBeds.setGreenhouse(validationService.getGreenhouseOrThrow(seedBedDto.greenhouse().id()));
+    seedBeds.setGreenhouse(validationService.getGreenhouseOrThrow(seedBedDto.greenhouseId()));
   }
 
   // получение инфо о грядке

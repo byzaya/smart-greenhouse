@@ -1,6 +1,7 @@
 package org.greenhouse.service.greenhouse;
 
 import lombok.RequiredArgsConstructor;
+import org.greenhouse.dto.input.greenhouse.ConfigurationInputDto;
 import org.greenhouse.dto.output.greenhouse.ConfigurationDto;
 import org.greenhouse.entity.greenhouse.Configurations;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
@@ -17,7 +18,7 @@ public class ConfigurationService {
 
   // создание конфигурации теплицы
   @Transactional
-  public ConfigurationDto createConfiguration(ConfigurationDto configurationDto) {
+  public ConfigurationDto createConfiguration(ConfigurationInputDto configurationDto) {
     Configurations configuration = new Configurations();
     updateConfigurationFromDto(configuration, configurationDto);
     return ConfigurationDto.fromConfiguration(configurationRepository.save(configuration));
@@ -25,14 +26,14 @@ public class ConfigurationService {
 
   // изменение конфигурации теплицы
   @Transactional
-  public ConfigurationDto updateConfiguration(Long id, ConfigurationDto updatedConfigurationDto) {
+  public ConfigurationDto updateConfiguration(Long id, ConfigurationInputDto updatedConfigurationDto) {
     Configurations configuration = validationService.getConfigurationOrThrow(id);
     updateConfigurationFromDto(configuration, updatedConfigurationDto);
     return ConfigurationDto.fromConfiguration(configurationRepository.save(configuration));
   }
 
   private void updateConfigurationFromDto(
-      Configurations configuration, ConfigurationDto configurationDto) {
+      Configurations configuration, ConfigurationInputDto configurationDto) {
     configuration.setIsActive(configurationDto.isActive());
     configuration.setIsAuto(configurationDto.isAuto());
     configuration.setMinTemperature(configurationDto.minTemperature());
@@ -40,7 +41,7 @@ public class ConfigurationService {
     configuration.setMinLight(configurationDto.minLight());
     configuration.setMaxLight(configurationDto.maxLight());
     configuration.setGreenhouse(
-        validationService.getGreenhouseOrThrow(configurationDto.greenhouses().id()));
+        validationService.getGreenhouseOrThrow(configurationDto.greenhouseId()));
   }
 
   // переключение isAuto конфигурации
