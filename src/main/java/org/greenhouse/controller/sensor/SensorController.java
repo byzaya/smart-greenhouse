@@ -27,21 +27,21 @@ public class SensorController {
   @Operation(
       summary = "Добавление датчика",
       description = "Добавление нового датчика в бд пользователем")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @PostMapping("/add")
   public SensorsDto createSensor(@RequestBody SensorsInputDto sensorDto) {
     return sensorService.createSensor(sensorDto);
   }
 
   @Operation(summary = "Получение датчика", description = "Получение датчика по его id")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/{id}")
   public SensorsDto getSensorById(@PathVariable Long id) {
     return sensorService.getSensorById(id);
   }
 
   @Operation(summary = "Удаление датчика", description = "Удаление датчика по его id")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @DeleteMapping("/{id}")
   public void deleteSensorById(@PathVariable Long id) {
     sensorService.deleteSensorById(id);
@@ -50,7 +50,7 @@ public class SensorController {
   @Operation(
       summary = "Получение списка активных датчиков",
       description = "Получение списка активных датчиков по id теплицы")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/{id}/active")
   public List<SensorsDto> getActiveSensorsByGreenhouseId(@PathVariable Long id) {
     return sensorService.getActiveSensorsByGreenhouseId(id);
@@ -59,7 +59,7 @@ public class SensorController {
   @Operation(
       summary = "Получение списка неактивных датчиков",
       description = "Получение списка неактивных датчиков по id теплицы")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/{id}/inactive")
   public List<SensorsDto> getNotActiveSensorsByGreenhouseId(@PathVariable Long id) {
     return sensorService.getNotActiveSensorsByGreenhouseId(id);

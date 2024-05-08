@@ -37,7 +37,7 @@ public class SeedBedController {
   @Operation(
       summary = "Изменение грядки",
       description = "Изменение грядки (в том числе ее конфигурации) по ее id")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @PutMapping("/update/{id}")
   public SeedBedDto updateSeedBed(
       @PathVariable Long id, @RequestBody SeedBedInputDto updatedSeedBedDto) {
@@ -47,7 +47,7 @@ public class SeedBedController {
   @Operation(
       summary = "Получение грядки",
       description = "Просмотр информации о грядке (в том числе ее конфигурации) по ее id")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/{id}")
   public SeedBedDto getSeedBedById(@PathVariable Long id) {
     return seedBedService.getSeedBedById(id);
@@ -56,14 +56,14 @@ public class SeedBedController {
   @Operation(
       summary = "Получение всех грядок теплицы",
       description = "Получение списка id грядок в теплице по ее id")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/greenhouses/{greenhouseId}")
   public List<Long> getSeedBedIdsByGreenhouseId(@PathVariable Long greenhouseId) {
     return seedBedService.getSeedBedIdsByGreenhouseId(greenhouseId);
   }
 
   @Operation(summary = "Удаление грядки", description = "Удаление грядки по ее id")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @DeleteMapping("/{id}")
   public void deleteSeedBedById(@PathVariable Long id) {
     seedBedService.deleteSeedBedById(id);
@@ -72,7 +72,7 @@ public class SeedBedController {
   @Operation(
       summary = "Вкл/выкл автоуправление",
       description = "Вкл/выкл автоуправление в конфигурации грядки")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @PatchMapping("/{id}/auto-mode")
   public SeedBedDto changeAutoMode(@PathVariable Long id, @RequestBody Boolean isAuto) {
     return seedBedService.changeAutoMode(id, isAuto);

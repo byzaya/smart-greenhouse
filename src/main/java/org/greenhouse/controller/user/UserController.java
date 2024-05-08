@@ -27,7 +27,7 @@ public class UserController {
   @Operation(
       summary = "Изменение пароля",
       description = "Изменение пароля пользователя")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @PatchMapping
   public ResponseEntity<?> changePassword(
       @RequestBody ChangePasswordRequest request, Principal connectedUser) {
@@ -38,7 +38,7 @@ public class UserController {
   @Operation(
       summary = "Информация о пользователе",
       description = "Получение информации о пользователе по его id")
-  @CrossOrigin(origins = "${cors-address}")
+//  @CrossOrigin(origins = "${cors-address}")
   @GetMapping("/{userId}")
   public ResponseEntity<UserDto> getUserInfo(@PathVariable Integer userId) {
     UserDto user = service.getInfo(userId);
