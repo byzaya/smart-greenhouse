@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  nginx:
+    container_name: nginx
+    depends_on:
+      - server
+    build: ./nginx
+    network_mode: "host"
+    volumes:
+      - ./ssl:/etc/nginx/ssl/
+    restart: always
+
+  server:
+    container_name: server
+    build: ./server
+    network_mode: "host"
+    environment:
+      - REDIRECT_URL=${REDIRECT_URL}
+      - DOMAIN_URL=${DOMAIN_URL}
+    restart: always
