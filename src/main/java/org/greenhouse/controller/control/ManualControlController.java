@@ -21,7 +21,7 @@ public class ManualControlController {
   @Operation(
       summary = "Вкл вентилятор",
       description = "Вкл вентилятор в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/fan/on")
   public void fanOn(@PathVariable Long greenhouseId) {
     manualControl.fanOn(greenhouseId);
@@ -30,7 +30,7 @@ public class ManualControlController {
   @Operation(
       summary = "Выкл вентилятор",
       description = "Выкл вентилятор в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/fan/off")
   public void fanOff(@PathVariable Long greenhouseId) {
     manualControl.fanOff(greenhouseId);
@@ -39,7 +39,7 @@ public class ManualControlController {
   @Operation(
       summary = "Вкл тепловентилятор",
       description = "Вкл тепловентилятор в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/heater/on")
   public void heaterOn(@PathVariable Long greenhouseId) {
     manualControl.heaterOn(greenhouseId);
@@ -48,7 +48,7 @@ public class ManualControlController {
   @Operation(
       summary = "Выкл тепловентилятор",
       description = "Выкл тепловентилятор в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/heater/off")
   public void heaterOff(@PathVariable Long greenhouseId) {
     manualControl.heaterOff(greenhouseId);
@@ -57,7 +57,7 @@ public class ManualControlController {
   @Operation(
       summary = "Открыть окно наполовину",
       description = "Открыть окно наполовину в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/window/half-open")
   public void windowHalfOpen(@PathVariable Long greenhouseId) {
     manualControl.windowHalfOpen(greenhouseId);
@@ -66,7 +66,7 @@ public class ManualControlController {
   @Operation(
       summary = "Открыть окно полностью",
       description = "Открыть окно полностью в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/window/full-open")
   public void windowFullOpen(@PathVariable Long greenhouseId) {
     manualControl.windowFullOpen(greenhouseId);
@@ -75,7 +75,7 @@ public class ManualControlController {
   @Operation(
       summary = "Закрыть окно",
       description = "Открыть окно наполовину в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/window/close")
   public void windowClose(@PathVariable Long greenhouseId) {
     manualControl.windowClose(greenhouseId);
@@ -84,7 +84,7 @@ public class ManualControlController {
   @Operation(
       summary = "Вкл освещение",
       description = "Вкл освещение в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/light/on")
   public void lightOn(@PathVariable Long greenhouseId) {
     manualControl.lightOn(greenhouseId);
@@ -93,7 +93,7 @@ public class ManualControlController {
   @Operation(
       summary = "Выкл освещение",
       description = "Выкл освещение в теплице по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/{greenhouseId}/light/off")
   public void lightOff(@PathVariable Long greenhouseId) {
     manualControl.lightOff(greenhouseId);
@@ -102,7 +102,7 @@ public class ManualControlController {
   @Operation(
       summary = "Вкл полив",
       description = "Вкл полив грядки по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/seedbeds/{seedbedId}/watering/on")
   public void wateringOn(@PathVariable Long seedbedId) {
     manualControl.wateringOn(seedbedId);
@@ -111,7 +111,7 @@ public class ManualControlController {
   @Operation(
       summary = "Выкл полив",
       description = "Выкл полив грядки по ее id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @PostMapping("/seedbeds/{seedbedId}/watering/off")
   public void wateringOff(@PathVariable Long seedbedId) {
     manualControl.wateringOff(seedbedId);

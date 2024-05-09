@@ -20,7 +20,7 @@ public class ControlController {
   private final ControlService controlService;
 
   @Operation(summary = "Получение инфо о приборах", description = "Получение инфо о приборах по его id")
-//  @CrossOrigin(origins = "${cors-address}")
+  @CrossOrigin
   @GetMapping("/{id}")
   public ControlDto getSensorById(@PathVariable Long id) {
     return controlService.getControlById(id);
