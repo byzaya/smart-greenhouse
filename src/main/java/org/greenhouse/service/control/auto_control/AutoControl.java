@@ -17,8 +17,8 @@ public class AutoControl {
   private final SeedBedsRepository seedBedsRepository;
   private final ValidationService validationService;
 
-  @Value("${scheduled-duration}")
-  private final Integer scheduledDuration = 1800000;
+//  @Value("${scheduled-duration}")
+//  private final Integer scheduledDuration = 1800000;
 
   // TODO сделать автоконтроль теплицы с Scheduled
 
