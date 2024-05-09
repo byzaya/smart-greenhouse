@@ -28,7 +28,7 @@ public class AuthenticationController {
   @Operation(
       summary = "Регистрация",
       description = "Создание нового аккаунта пользователя")
-  @CrossOrigin
+  @CrossOrigin(origins = "http://192.168.1.98:8080")
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
       @RequestBody RegisterRequest request
