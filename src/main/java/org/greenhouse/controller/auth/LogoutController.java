@@ -22,7 +22,6 @@ public class LogoutController {
   private final LogoutService logoutService;
 
   @Operation(summary = "Выход из аккаунта", description = "Выход из аккаунта пользователя")
-  @CrossOrigin
   @PostMapping
   public ResponseEntity<String> logout(
       HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

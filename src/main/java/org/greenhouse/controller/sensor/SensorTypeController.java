@@ -25,7 +25,6 @@ public class SensorTypeController {
   @Operation(
       summary = "Добавление типа датчика",
       description = "Добавление нового типа датчика в бд пользователем")
-  @CrossOrigin
   @PostMapping("/add")
   public SensorTypeDto createSensorType(@RequestBody SensorTypeInputDto sensorTypeDto) {
     return sensorTypeService.createSensorType(sensorTypeDto);
@@ -34,7 +33,6 @@ public class SensorTypeController {
   @Operation(
       summary = "Получение типа датчика",
       description = "Получение типа датчика по его id")
-  @CrossOrigin
   @GetMapping("/{id}")
   public SensorTypeDto getSensorTypeById(@PathVariable Long id) {
     return sensorTypeService.getSensorTypeById(id);

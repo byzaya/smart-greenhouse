@@ -28,7 +28,6 @@ public class AuthenticationController {
   @Operation(
       summary = "Регистрация",
       description = "Создание нового аккаунта пользователя")
-  @CrossOrigin(origins = "http://192.168.1.98:8080")
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
       @RequestBody RegisterRequest request
@@ -39,7 +38,6 @@ public class AuthenticationController {
   @Operation(
       summary = "Аутентификация",
       description = "Вход в аккаунт пользователя")
-  @CrossOrigin
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request
@@ -50,7 +48,6 @@ public class AuthenticationController {
   @Operation(
       summary = "Обновление токена",
       description = "Обновление JWT токена пользователя")
-  @CrossOrigin
   @PostMapping("/refresh-token")
   public void refreshToken(
       HttpServletRequest request,
