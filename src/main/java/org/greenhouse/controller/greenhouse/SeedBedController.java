@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.input.greenhouse.SeedBedInputDto;
 import org.greenhouse.dto.output.greenhouse.SeedBedDto;
 import org.greenhouse.service.greenhouse.SeedBedService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;

@@ -8,7 +8,6 @@ import org.greenhouse.dto.auth.ChangePasswordRequest;
 import org.greenhouse.dto.output.user.UserDto;
 import org.greenhouse.service.user.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +23,7 @@ public class UserController {
 
   private final UserService service;
 
-  @Operation(
-      summary = "Изменение пароля",
-      description = "Изменение пароля пользователя")
+  @Operation(summary = "Изменение пароля", description = "Изменение пароля пользователя")
   @PatchMapping
   public ResponseEntity<?> changePassword(
       @RequestBody ChangePasswordRequest request, Principal connectedUser) {

@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.input.greenhouse.GreenhouseInputDto;
 import org.greenhouse.dto.output.greenhouse.GreenhouseDto;
 import org.greenhouse.service.greenhouse.GreenhouseService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

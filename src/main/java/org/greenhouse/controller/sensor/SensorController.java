@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.input.sensor.SensorsInputDto;
 import org.greenhouse.dto.output.sensor.SensorsDto;
 import org.greenhouse.service.sensor.SensorService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

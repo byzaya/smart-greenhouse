@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.input.sensor.SensorTypeInputDto;
 import org.greenhouse.dto.output.sensor.SensorTypeDto;
 import org.greenhouse.service.sensor.SensorTypeService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +29,7 @@ public class SensorTypeController {
     return sensorTypeService.createSensorType(sensorTypeDto);
   }
 
-  @Operation(
-      summary = "Получение типа датчика",
-      description = "Получение типа датчика по его id")
+  @Operation(summary = "Получение типа датчика", description = "Получение типа датчика по его id")
   @GetMapping("/{id}")
   public SensorTypeDto getSensorTypeById(@PathVariable Long id) {
     return sensorTypeService.getSensorTypeById(id);

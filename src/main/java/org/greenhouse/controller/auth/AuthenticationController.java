@@ -11,7 +11,6 @@ import org.greenhouse.dto.auth.AuthenticationResponse;
 import org.greenhouse.dto.auth.RegisterRequest;
 import org.greenhouse.service.auth.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,34 +24,23 @@ public class AuthenticationController {
 
   private final AuthenticationService service;
 
-  @Operation(
-      summary = "Регистрация",
-      description = "Создание нового аккаунта пользователя")
+  @Operation(summary = "Регистрация", description = "Создание нового аккаунта пользователя")
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody RegisterRequest request
-  ) {
+  public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
     return ResponseEntity.ok(service.register(request));
   }
 
-  @Operation(
-      summary = "Аутентификация",
-      description = "Вход в аккаунт пользователя")
+  @Operation(summary = "Аутентификация", description = "Вход в аккаунт пользователя")
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request
-  ) {
+      @RequestBody AuthenticationRequest request) {
     return ResponseEntity.ok(service.authenticate(request));
   }
 
-  @Operation(
-      summary = "Обновление токена",
-      description = "Обновление JWT токена пользователя")
+  @Operation(summary = "Обновление токена", description = "Обновление JWT токена пользователя")
   @PostMapping("/refresh-token")
-  public void refreshToken(
-      HttpServletRequest request,
-      HttpServletResponse response
-  ) throws IOException {
+  public void refreshToken(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
     service.refreshToken(request, response);
   }
 }
