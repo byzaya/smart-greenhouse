@@ -5,17 +5,25 @@ import org.greenhouse.entity.greenhouse.Configurations;
 import org.greenhouse.entity.greenhouse.Control;
 import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.entity.greenhouse.SeedBeds;
+import org.greenhouse.entity.log.Topics;
 import org.greenhouse.entity.sensor.SensorType;
 import org.greenhouse.entity.sensor.Sensors;
 import org.greenhouse.entity.user.User;
 import org.greenhouse.exception.message.not_found_message.ConfigurationNotFoundException;
 import org.greenhouse.exception.message.IsAutoFalseException;
 import org.greenhouse.exception.message.IsAutoTrueException;
+import org.greenhouse.exception.message.not_found_message.ControlNotFoundException;
+import org.greenhouse.exception.message.not_found_message.GreenhouseNotFoundException;
+import org.greenhouse.exception.message.not_found_message.SeedBedNotFoundException;
+import org.greenhouse.exception.message.not_found_message.SensorNotFoundException;
+import org.greenhouse.exception.message.not_found_message.SensorTypeNotFoundException;
+import org.greenhouse.exception.message.not_found_message.TopicNotFoundException;
 import org.greenhouse.exception.message.not_found_message.UserNotFoundException;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
 import org.greenhouse.repository.greenhouse.ControlRepository;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;
+import org.greenhouse.repository.log.TopicsRepository;
 import org.greenhouse.repository.sensor.SensorsRepository;
 import org.greenhouse.repository.sensor.SensorsTypeRepository;
 import org.greenhouse.repository.user.UserRepository;
@@ -33,6 +41,7 @@ public class ValidationService {
   private final SensorsRepository sensorsRepository;
   private final SensorsTypeRepository sensorsTypeRepository;
   private final ControlRepository controlRepository;
+  private final TopicsRepository topicsRepository;
 
   @Transactional(readOnly = true)
   public User getUserOrThrow(Integer userId) {
@@ -56,9 +65,7 @@ public class ValidationService {
     return greenhousesRepository
         .findById(greenhouseId)
         .orElseThrow(
-            () ->
-                new ConfigurationNotFoundException(
-                    "Greenhouse not found with ID: " + greenhouseId));
+            () -> new GreenhouseNotFoundException("Greenhouse not found with ID: " + greenhouseId));
   }
 
   @Transactional(readOnly = true)
@@ -66,19 +73,14 @@ public class ValidationService {
     return seedBedsRepository
         .findById(seedBedId)
         .orElseThrow(
-            () ->
-                new ConfigurationNotFoundException(
-                    "Seed bed not found with ID: " + seedBedId));
+            () -> new SeedBedNotFoundException("Seed bed not found with ID: " + seedBedId));
   }
 
   @Transactional(readOnly = true)
   public Sensors getSensorOrThrow(Long sensorId) {
     return sensorsRepository
         .findById(sensorId)
-        .orElseThrow(
-            () ->
-                new ConfigurationNotFoundException(
-                    "Sensor not found with ID: " + sensorId));
+        .orElseThrow(() -> new SensorNotFoundException("Sensor not found with ID: " + sensorId));
   }
 
   @Transactional(readOnly = true)
@@ -87,18 +89,21 @@ public class ValidationService {
         .findById(sensorTypeId)
         .orElseThrow(
             () ->
-                new ConfigurationNotFoundException(
-                    "Sensor type not found with ID: " + sensorTypeId));
+                new SensorTypeNotFoundException("Sensor type not found with ID: " + sensorTypeId));
   }
 
   @Transactional(readOnly = true)
   public Control getControlOrThrow(Long controlId) {
     return controlRepository
         .findById(controlId)
-        .orElseThrow(
-            () ->
-                new ConfigurationNotFoundException(
-                    "Control not found with ID: " + controlId));
+        .orElseThrow(() -> new ControlNotFoundException("Control not found with ID: " + controlId));
+  }
+
+  @Transactional(readOnly = true)
+  public Topics getTopicOrThrow(Long topicId) {
+    return topicsRepository
+        .findById(topicId)
+        .orElseThrow(() -> new TopicNotFoundException("Topic not found with ID: " + topicId));
   }
 
   @Transactional(readOnly = true)
