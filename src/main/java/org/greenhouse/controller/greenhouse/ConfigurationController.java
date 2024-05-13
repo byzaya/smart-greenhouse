@@ -57,4 +57,12 @@ public class ConfigurationController {
   public ConfigurationDto getConfigurationById(@PathVariable Long id) {
     return configurationService.getConfigurationById(id);
   }
+
+  @Operation(
+      summary = "Получение конфигурации",
+      description = "Просмотр конфигурации теплицы по id теплицы")
+  @GetMapping("/greenhouse/{greenhouseId}")
+  public ConfigurationDto getConfigurationByGreenhouseId(@PathVariable Long greenhouseId) {
+    return configurationService.getConfigurationByGreenhouseId(greenhouseId);
+  }
 }

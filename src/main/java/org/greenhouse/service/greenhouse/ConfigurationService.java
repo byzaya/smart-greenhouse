@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.greenhouse.dto.input.greenhouse.ConfigurationInputDto;
 import org.greenhouse.dto.output.greenhouse.ConfigurationDto;
 import org.greenhouse.entity.greenhouse.Configurations;
+import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.repository.greenhouse.ConfigurationsRepository;
 import org.greenhouse.service.ValidationService;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,6 @@ public class ConfigurationService {
   }
 
   // переключение isAuto конфигурации
-  // TODO добавить проверку, чтобы у одной теплицы была только одна вкл конфигурация
   @Transactional
   public ConfigurationDto changeAutoMode(Long id, Boolean isAuto) {
     Configurations configuration = validationService.getConfigurationOrThrow(id);
@@ -60,5 +60,10 @@ public class ConfigurationService {
     return ConfigurationDto.fromConfiguration(configuration);
   }
 
-  // TODO получение конфига по id теплицы
+  // получение конфигурации по id теплицы
+  @Transactional(readOnly = true)
+  public ConfigurationDto getConfigurationByGreenhouseId(Long id) {
+    Greenhouses greenhouses = validationService.getGreenhouseOrThrow(id);
+    return ConfigurationDto.fromConfiguration(greenhouses.getConfiguration());
+  }
 }
