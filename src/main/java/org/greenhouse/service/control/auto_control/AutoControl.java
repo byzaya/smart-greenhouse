@@ -5,7 +5,6 @@ import org.greenhouse.entity.greenhouse.Greenhouses;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;
 import org.greenhouse.service.ValidationService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,6 @@ public class AutoControl {
   private final GreenhousesRepository greenhousesRepository;
   private final SeedBedsRepository seedBedsRepository;
   private final ValidationService validationService;
-
-//  @Value("${scheduled-duration}")
-//  private final Integer scheduledDuration = 1800000;
 
   // TODO сделать автоконтроль теплицы с Scheduled
 
@@ -87,16 +83,19 @@ public class AutoControl {
       TODO ЕСЛИ СЛОМАНЫ ВСЕ - оставлять дефолтное значение
       --------------Влажность-----------------
 
-
       Тут проверяем для каждой грядки
       Берем первое значение по влажности из 3 последних значений (или ср знач)? и самое последнее значение
         Если последнее значение (или оба значения) попадают в диапазон, то
-          Вкл полив
+          Если вкл полив, то выключаем
+          Если выкл полив, то ничего не делаем
+        Иначе
+          Если выкл полив, то вкл его
+          Если вкл полив, то ничего не делаем
 
 
   */
 
-//  @Scheduled(fixedDelay = scheduledDuration)
+  @Scheduled(fixedDelay = 1800000)
   public void controlAll(Long greenhouseId) {
     Greenhouses greenhouse = validationService.getGreenhouseOrThrow(greenhouseId);
     if (greenhouse.getConfiguration().getIsAuto()) {
