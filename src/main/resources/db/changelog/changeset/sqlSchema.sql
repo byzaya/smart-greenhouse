@@ -1,19 +1,19 @@
 CREATE TABLE sensor_type
 (
-    id          BIGINT      NOT NULL PRIMARY KEY,
+    id          SERIAL PRIMARY KEY,
     sensor_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE topics
 (
-    id         BIGINT      NOT NULL PRIMARY KEY,
+    id         SERIAL PRIMARY KEY,
     topic_name VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE receive_logs
 (
+    id           SERIAL PRIMARY KEY,
     validity     BOOLEAN      NOT NULL,
-    id           BIGINT       NOT NULL PRIMARY KEY,
     receive_time TIMESTAMP(6) NOT NULL,
     topic_id     BIGINT       NOT NULL,
     message      VARCHAR(255) NOT NULL,
@@ -22,9 +22,9 @@ CREATE TABLE receive_logs
 
 CREATE TABLE send_logs
 (
+    id        SERIAL PRIMARY KEY,
     command   INTEGER      NOT NULL,
     reply     BOOLEAN      NOT NULL,
-    id        BIGINT       NOT NULL PRIMARY KEY,
     send_time TIMESTAMP(6) NOT NULL,
     topic_id  BIGINT       NOT NULL,
     CONSTRAINT fkerxe1yxejdm5lbe2bwb9x37b5 FOREIGN KEY (topic_id) REFERENCES topics (id)
@@ -32,7 +32,7 @@ CREATE TABLE send_logs
 
 CREATE TABLE users
 (
-    id       INTEGER      NOT NULL PRIMARY KEY,
+    id       SERIAL PRIMARY KEY,
     email    VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role     VARCHAR(255) NOT NULL,
@@ -42,8 +42,8 @@ CREATE TABLE users
 
 CREATE TABLE greenhouse
 (
+    id              SERIAL PRIMARY KEY,
     user_id         INTEGER      NOT NULL,
-    id              BIGINT       NOT NULL PRIMARY KEY,
     greenhouse_name VARCHAR(50)  NOT NULL,
     location        VARCHAR(255) NOT NULL,
     CONSTRAINT fk5t6yei2vlibhbtilhijjodvwi FOREIGN KEY (user_id) REFERENCES users (id)
@@ -51,6 +51,7 @@ CREATE TABLE greenhouse
 
 CREATE TABLE configurations
 (
+    id              SERIAL PRIMARY KEY,
     is_active       BOOLEAN NOT NULL,
     is_auto         BOOLEAN NOT NULL,
     max_light       INTEGER NOT NULL,
@@ -58,23 +59,23 @@ CREATE TABLE configurations
     min_light       INTEGER NOT NULL,
     min_temperature INTEGER NOT NULL,
     greenhouse_id   BIGINT  NOT NULL UNIQUE,
-    id              BIGINT  NOT NULL PRIMARY KEY,
     CONSTRAINT fk1gfx57yj6uh041wgamg1am4kq FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id)
 );
 
 CREATE TABLE control
 (
+    id             SERIAL PRIMARY KEY,
     fan_enabled    BOOLEAN NOT NULL,
     heater_enabled BOOLEAN NOT NULL,
     light_enabled  BOOLEAN NOT NULL,
     window_status  INTEGER NOT NULL,
     greenhouse_id  BIGINT  NOT NULL UNIQUE,
-    id             BIGINT  NOT NULL PRIMARY KEY,
     CONSTRAINT fkd74h8ms8g31c1l1gx1qk3ew5a FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id)
 );
 
 CREATE TABLE seedbeds
 (
+    id                 SERIAL PRIMARY KEY,
     is_auto            BOOLEAN     NOT NULL,
     max_humidity       INTEGER     NOT NULL,
     min_humidity       INTEGER     NOT NULL,
@@ -82,17 +83,16 @@ CREATE TABLE seedbeds
     watering_enabled   BOOLEAN     NOT NULL,
     watering_frequency INTEGER     NOT NULL,
     greenhouse_id      BIGINT      NOT NULL,
-    id                 BIGINT      NOT NULL PRIMARY KEY,
     seedbed_name       VARCHAR(50) NOT NULL,
     CONSTRAINT fkpyuakexhwe3m6lvkuuxah6n43 FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id)
 );
 
 CREATE TABLE sensors
 (
+    id             SERIAL PRIMARY KEY,
     is_active      BOOLEAN NOT NULL,
     sensor_number  INTEGER NOT NULL,
     greenhouse_id  BIGINT  NOT NULL,
-    id             BIGINT  NOT NULL PRIMARY KEY,
     sensor_type_id BIGINT  NOT NULL,
     CONSTRAINT fkkujgmlito6k4tuyw5y73dp8tt FOREIGN KEY (greenhouse_id) REFERENCES greenhouse (id),
     CONSTRAINT fk8fpn04m9aagposrvfs0aro3bj FOREIGN KEY (sensor_type_id) REFERENCES sensor_type (id)
@@ -100,7 +100,7 @@ CREATE TABLE sensors
 
 CREATE TABLE humidity
 (
-    id             INTEGER      NOT NULL PRIMARY KEY,
+    id             SERIAL PRIMARY KEY,
     value          INTEGER      NOT NULL,
     receive_log_id BIGINT       NOT NULL,
     receive_time   TIMESTAMP(6) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE humidity
 
 CREATE TABLE light
 (
-    id             INTEGER      NOT NULL PRIMARY KEY,
+    id             SERIAL PRIMARY KEY,
     value          INTEGER      NOT NULL,
     greenhouse_id  BIGINT       NOT NULL,
     receive_log_id BIGINT       NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE light
 
 CREATE TABLE temperature
 (
-    id             INTEGER      NOT NULL PRIMARY KEY,
+    id             SERIAL PRIMARY KEY,
     value          INTEGER      NOT NULL,
     greenhouse_id  BIGINT       NOT NULL,
     receive_log_id BIGINT       NOT NULL,
@@ -139,8 +139,8 @@ CREATE TABLE temperature
 
 CREATE TABLE tokens
 (
+    id         SERIAL PRIMARY KEY,
     expired    BOOLEAN,
-    id         INTEGER NOT NULL PRIMARY KEY,
     revoked    BOOLEAN,
     user_id    INTEGER,
     token      VARCHAR(255) UNIQUE,
