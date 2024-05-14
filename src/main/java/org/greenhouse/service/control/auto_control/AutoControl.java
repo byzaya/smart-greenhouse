@@ -20,7 +20,9 @@ public class AutoControl {
 
   /*
      Тут прописана вся логика автоматического управления теплицей (включая грядки)
-     Метод должен запускаться каждые N минут (10 мин) - T => 20-30 мин (задаем данные в application properties)
+     Метод должен запускаться каждые N минут (10 мин период - T, как часто приходят значения с датчиков)
+                                    => 20-30 мин (задаем данные в application properties)
+
      На вход должно поступать id теплицы
 
      Далее проверки:
@@ -95,13 +97,13 @@ public class AutoControl {
 
   */
 
-  @Scheduled(fixedDelay = 1800000)
-  public void controlAll(Long greenhouseId) {
-    Greenhouses greenhouse = validationService.getGreenhouseOrThrow(greenhouseId);
-    if (greenhouse.getConfiguration().getIsAuto()) {
-
-    } else { // тут нужно проверить также все грядки на isAuto
-      return;
-    }
-  }
+//  @Scheduled(fixedDelay = 1800000)
+//  public void controlAll(Long greenhouseId) {
+//    Greenhouses greenhouse = validationService.getGreenhouseOrThrow(greenhouseId);
+//    if (greenhouse.getConfiguration().getIsAuto()) {
+//
+//    } else { // тут нужно проверить также все грядки на isAuto
+//      return;
+//    }
+//  }
 }

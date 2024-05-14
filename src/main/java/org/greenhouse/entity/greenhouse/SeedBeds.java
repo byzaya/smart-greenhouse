@@ -26,7 +26,7 @@ import org.greenhouse.entity.log.readings.Humidity;
 @Table(name = "seedbeds")
 public class SeedBeds {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "seedbed_name", nullable = false, length = 50)

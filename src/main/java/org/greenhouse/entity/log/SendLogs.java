@@ -22,7 +22,7 @@ import lombok.Setter;
 @Table(name = "send_logs")
 public class SendLogs {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "reply", nullable = false)

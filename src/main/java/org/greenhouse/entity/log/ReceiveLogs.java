@@ -27,7 +27,7 @@ import org.greenhouse.entity.log.readings.Readings;
 @Table(name = "receive_logs")
 public class ReceiveLogs {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "message", nullable = false, length = 255)

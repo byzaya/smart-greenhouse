@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "topics")
 public class Topics {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "topic_name", nullable = false, unique = true, length = 50)

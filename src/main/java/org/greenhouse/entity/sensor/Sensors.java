@@ -29,7 +29,7 @@ import org.greenhouse.entity.log.readings.Temperature;
 @Table(name = "sensors")
 public class Sensors {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "is_active", nullable = false)

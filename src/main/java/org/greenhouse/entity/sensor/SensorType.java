@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "sensor_type")
 public class SensorType {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "sensor_name", nullable = false, length = 50)

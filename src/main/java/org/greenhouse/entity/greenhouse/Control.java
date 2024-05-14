@@ -22,7 +22,7 @@ import lombok.Setter;
 @Table(name = "control")
 public class Control {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "window_status", nullable = false)

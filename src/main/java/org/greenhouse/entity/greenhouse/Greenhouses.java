@@ -30,7 +30,7 @@ import org.greenhouse.entity.user.User;
 @Table(name = "greenhouse")
 public class Greenhouses {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "location", nullable = false, length = 255)
