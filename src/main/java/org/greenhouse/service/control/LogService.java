@@ -43,4 +43,7 @@ public class LogService {
     return ReceiveLogDto.fromReceiveLogs(receiveLogs);
   }
 
+  // TODO сделать выгрузку последних 10 записей send logs по greenhouse id
+
+
 }

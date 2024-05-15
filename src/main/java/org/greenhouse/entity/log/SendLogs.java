@@ -26,7 +26,7 @@ public class SendLogs {
   private Long id;
 
   @Column(name = "reply", nullable = false)
-  private Boolean reply; // TODO узнать что имеется ввиду
+  private Boolean reply; // получен/не получен ответ
 
   @Column(name = "command", nullable = false)
   private Integer command; // выполненная команда

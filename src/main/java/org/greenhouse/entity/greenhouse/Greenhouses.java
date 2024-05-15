@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.greenhouse.entity.log.SendLogs;
+import org.greenhouse.entity.log.Topics;
 import org.greenhouse.entity.log.readings.Light;
 import org.greenhouse.entity.log.readings.Temperature;
 import org.greenhouse.entity.sensor.Sensors;
@@ -60,4 +62,7 @@ public class Greenhouses {
 
   @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
   private List<Sensors> sensors = new ArrayList<>();
+
+  @OneToMany(mappedBy = "greenhouse", cascade = CascadeType.ALL)
+  private List<Topics> topics = new ArrayList<>();
 }
