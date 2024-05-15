@@ -35,18 +35,24 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfiguration {
+
+  // пока выкл аутентификацию
   private static final String[] WHITE_LIST_URL = {
     "/api/v1/auth/**",
-    "/v2/api-docs",
-    "/v3/api-docs",
-    "/v3/api-docs/**",
     "/swagger-resources",
     "/swagger-resources/**",
     "/configuration/ui",
     "/configuration/security",
     "/swagger-ui/**",
-    "/webjars/**",
-    "/swagger-ui.html"
+    "/swagger-ui.html",
+    "/api/v1/greenhouse/*",
+    "/api/v1/seedbed/*",
+    "/api/v1/manual-control/*",
+    "/api/v1/config/*",
+    "/api/v1/control/*",
+    "/api/v1/log/*",
+    "/api/v1/sensor/*",
+    "/api/v1/sensor-type/*"
   };
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
@@ -59,18 +65,19 @@ public class SecurityConfiguration {
             req ->
                 req.requestMatchers(WHITE_LIST_URL)
                     .permitAll()
-                    .requestMatchers("/api/v1/management/**")
-                    .hasAnyRole(ADMIN.name(), MANAGER.name())
-                    .requestMatchers(GET, "/api/v1/management/**")
-                    .hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                    .requestMatchers(POST, "/api/v1/management/**")
-                    .hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                    .requestMatchers(PUT, "/api/v1/management/**")
-                    .hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                    .requestMatchers(DELETE, "/api/v1/management/**")
-                    .hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
-                    .anyRequest()
-                    .authenticated())
+//                    .requestMatchers("/api/v1/management/**")
+//                    .hasAnyRole(ADMIN.name(), MANAGER.name())
+//                    .requestMatchers(GET, "/api/v1/management/**")
+//                    .hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
+//                    .requestMatchers(POST, "/api/v1/management/**")
+//                    .hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
+//                    .requestMatchers(PUT, "/api/v1/management/**")
+//                    .hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
+//                    .requestMatchers(DELETE, "/api/v1/management/**")
+//                    .hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+//                    .anyRequest()
+//                    .authenticated()
+        )
         .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
