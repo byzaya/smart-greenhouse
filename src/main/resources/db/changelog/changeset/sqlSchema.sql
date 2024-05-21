@@ -22,11 +22,13 @@ CREATE TABLE receive_logs
 
 CREATE TABLE send_logs
 (
-    id        SERIAL PRIMARY KEY,
-    command   INTEGER      NOT NULL,
-    reply     BOOLEAN      NOT NULL,
-    send_time TIMESTAMP(6) NOT NULL,
-    topic_id  BIGINT       NOT NULL,
+    id            SERIAL PRIMARY KEY,
+    command       INTEGER      NOT NULL,
+    reply         BOOLEAN      NOT NULL,
+    send_time     TIMESTAMP(6) NOT NULL,
+    topic_id      BIGINT       NOT NULL,
+    greenhouse_id BIGINT       NOT NULL,
+    constraint fkkujgmlito6k4tuyw5y73dp8tt FOREIGN KEY (greenhouse_id) references greenhouse (id),
     CONSTRAINT fkerxe1yxejdm5lbe2bwb9x37b5 FOREIGN KEY (topic_id) REFERENCES topics (id)
 );
 

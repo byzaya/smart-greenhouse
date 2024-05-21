@@ -1,7 +1,12 @@
 package org.greenhouse.service.control.auto_control;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.greenhouse.entity.greenhouse.Greenhouses;
+import org.greenhouse.entity.greenhouse.SeedBeds;
+import org.greenhouse.entity.sensor.Sensors;
 import org.greenhouse.repository.greenhouse.GreenhousesRepository;
 import org.greenhouse.repository.greenhouse.SeedBedsRepository;
 import org.greenhouse.service.ValidationService;
@@ -40,8 +45,6 @@ public class AutoControl {
       - минимальное освещение (minLight) от 0 до 100%
       - максимальное освещение (maxLight) от 0 до 100%
 
-      - длительность полива (wateringDuration) измеряется в минутах
-      - частота полива (wateringFrequency) кол-во раз в день вкл полива грядки
       - минимальный уровень влажности (minHumidity) от 0 до 100%
       - максимальный уровень влажности (maxHumidity) от 0 до 100%
 
@@ -85,7 +88,7 @@ public class AutoControl {
       TODO ЕСЛИ СЛОМАНЫ ВСЕ - оставлять дефолтное значение
       --------------Влажность-----------------
 
-      Тут проверяем для каждой грядки
+      Тут проверяем для каждой грядки (СЕЙЧАС ВЛАЖНОСТЬ НЕ УЧИТЫВАЕТСЯ)
       Берем первое значение по влажности из 3 последних значений (или ср знач)? и самое последнее значение
         Если последнее значение (или оба значения) попадают в диапазон, то
           Если вкл полив, то выключаем
@@ -95,14 +98,34 @@ public class AutoControl {
           Если вкл полив, то ничего не делаем
 
 
+
+
   */
 
 //  @Scheduled(fixedDelay = 1800000)
 //  public void controlAll(Long greenhouseId) {
 //    Greenhouses greenhouse = validationService.getGreenhouseOrThrow(greenhouseId);
-//    if (greenhouse.getConfiguration().getIsAuto()) {
+//    List<SeedBeds> seedBedsList =
+//        greenhouse.getSeedBeds().stream().filter(SeedBeds::getIsAuto).toList();
+//    if (greenhouse.getConfiguration().getIsAuto() && greenhouse.getConfiguration().getIsActive()) {
+//      Integer minTemperature = greenhouse.getConfiguration().getMinTemperature();
+//      Integer maxTemperature = greenhouse.getConfiguration().getMaxTemperature();
+//      Integer minLight = greenhouse.getConfiguration().getMinLight();
+//      Integer maxLight = greenhouse.getConfiguration().getMaxLight();
 //
-//    } else { // тут нужно проверить также все грядки на isAuto
+//      List<Sensors> sensors =
+//          greenhouse.getSensors().stream().filter(Sensors::getIsActive).toList();
+//
+//
+//
+//      if (seedBedsList.size() > 0) {
+//        Map<Long, Integer> seedBedMinHumidity = new HashMap<>();
+//        Map<Long, Integer> seedBedMaxHumidity = new HashMap<>();
+//        for (int i = 0; i < seedBedsList.size(); i++) {}
+//      }
+//    } else if (seedBedsList.size() > 0) { // тут нужно проверить также все грядки на isAuto
+//
+//    } else {
 //      return;
 //    }
 //  }
